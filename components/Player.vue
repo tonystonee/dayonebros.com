@@ -25,15 +25,11 @@
         </span>
     </v-tooltip>
 
-    <div class="my-3 white">
-        <video-details :video="video"></video-details>
-    </div>
 </div>
 </template>
 
 <script setup lang="ts">
 import Screen from '@/components/Screen.vue'
-import VideoDetails from '@/components/VideoDetails.vue'
 import { useCategory } from '@/composables/useCategory'
 import type { VideoItem } from '@/types/video'
 
