@@ -16,12 +16,5 @@ export function useCategory () {
     return match?.name ?? null
   })
 
-  const darken = computed<string | null>(() => {
-    if (route.path === '/') {
-      return null
-    }
-    return 'bg-barColor-darken-2'
-  })
-
-  return { category, darken }
+  return { category }
 }

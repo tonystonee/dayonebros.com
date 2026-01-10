@@ -12,10 +12,6 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  barColor: '#F44336'
-})
-
 useHead({
   title: 'Day One Bros - copyright',
   meta: [

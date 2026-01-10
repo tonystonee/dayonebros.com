@@ -63,8 +63,8 @@ const links: FooterLink[] = [
 
 <style scoped lang="scss">
 .footer{
-  background: linear-gradient(135deg, #f8f8f8 0%, #ececec 100%);
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgb(var(--v-theme-surface));
+  border-top: 1px solid rgba(var(--v-theme-on-surface), 0.08);
 }
 .footer-brand{
   display: inline-flex;
@@ -80,8 +80,8 @@ const links: FooterLink[] = [
   width: 22px;
   height: 22px;
   border-radius: 8px;
-  background: #111;
-  color: #fff;
+  background: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
   font-size: 10px;
 }
 .footer-name{

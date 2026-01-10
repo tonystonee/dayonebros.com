@@ -21,6 +21,21 @@ export default defineNuxtPlugin((nuxtApp) => {
             success: '#4CAF50',
             warning: '#FFC107'
           }
+        },
+        dayoneDark: {
+          dark: true,
+          colors: {
+            barColor: '#E53935',
+            primary: '#90CAF9',
+            secondary: '#B0BEC5',
+            accent: '#82B1FF',
+            error: '#FF8A80',
+            info: '#64B5F6',
+            success: '#81C784',
+            warning: '#FFD54F',
+            background: '#0F1115',
+            surface: '#171A21'
+          }
         }
       }
     }

@@ -11,9 +11,7 @@
                 @click="emit('random')"
                 size="large"
                 rounded="pill"
-                color="barColor"
-                :class="darken"
-                class="random-btn text-white ml-0 mt-3 px-4"
+                class="random-btn ml-0 mt-3 px-4"
                 variant="elevated"
             >
                 <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
@@ -41,14 +39,14 @@ const emit = defineEmits<{
   (e: 'random'): void
 }>()
 
-const { category, darken } = useCategory()
+const { category } = useCategory()
 </script>
 
 <style lang="scss">
     .random-btn{
         letter-spacing: 1.5px;
         text-transform: uppercase;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.2);
     }
     .player {
         .player-progress{

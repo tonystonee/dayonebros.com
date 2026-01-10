@@ -6,10 +6,6 @@
 import { computed, ref } from 'vue'
 import Page from '@/components/Page.vue'
 
-definePageMeta({
-  barColor: '#F44336'
-})
-
 useHead({
   title: 'Home - Day One Bros',
   meta: [

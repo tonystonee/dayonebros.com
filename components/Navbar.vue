@@ -3,17 +3,16 @@
         <v-navigation-drawer
             v-if="nav"
             class="nav-drawer"
-            :color="navColor"
             v-model="drawer"
             width="230"
             temporary
         >
             <v-list density="compact" class="py-0">
-                <v-toolbar :color="navColor" class="title-tile">
+                <v-toolbar class="title-tile">
                     <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mx-1" />
-                    <v-icon class="mx-0" :color="iconColor">mdi-play-circle</v-icon>
+                    <v-icon class="mx-0">mdi-play-circle</v-icon>
                     <v-toolbar-title class="title ml-1 mr-5 align-center ">
-                        <NuxtLink to="/" :class="textColor">DayOneBros &nbsp;</NuxtLink>
+                        <NuxtLink to="/">DayOneBros &nbsp;</NuxtLink>
                     </v-toolbar-title>
                     <v-divider></v-divider>
                 </v-toolbar>
@@ -25,7 +24,7 @@
                     class="nav-item"
                     rounded="lg"
                     :active="currentPath === item.slug"
-                    active-color="barColor"
+                    :class="{ 'nav-item--active': currentPath === item.slug }"
                 >
                     <template #prepend>
                         <v-icon size="20">{{ item.icon }}</v-icon>
@@ -36,17 +35,26 @@
         </v-navigation-drawer>
 
         <v-app-bar
-            :color="navColor"
             density="comfortable"
             elevation="1"
             class="top-bar"
         >
             <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
-            <v-icon class="ml-2 mr-0 navicon" :color="iconColor">mdi-play-circle</v-icon>
+            <v-icon class="ml-2 mr-0 navicon">mdi-play-circle</v-icon>
             <v-toolbar-title class="title ml-2 mr-5 align-center ">
-                <NuxtLink to="/" :class="textColor">DayOneBros &nbsp;</NuxtLink>
-                <span v-if="category" :class="textColor" class="text-subtitle-1">{{category}}</span>
+                <NuxtLink to="/" class="brand-link">DayOneBros &nbsp;</NuxtLink>
+                <span v-if="category" class="text-subtitle-1">{{category}}</span>
             </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn
+                icon
+                variant="text"
+                class="theme-toggle"
+                @click="toggleTheme"
+                :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+            >
+                <v-icon>{{ isDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}</v-icon>
+            </v-btn>
         </v-app-bar>
     </div>
 </template>
@@ -54,6 +62,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
 
 type NavItem = {
@@ -79,15 +88,17 @@ const items: NavItem[] = [
 ]
 
 const route = useRoute()
+const theme = useTheme()
 const { category } = useCategory()
 
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
-const isHome = computed(() => route.path === '/')
 const currentPath = computed(() => route.path)
-const textColor = computed(() => (route.path === '/' ? 'text-black' : 'text-white'))
-const iconColor = computed(() => (route.path === '/' ? 'red' : 'white'))
-const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
+const isDark = computed(() => theme.global.current.value.dark)
+
+const toggleTheme = () => {
+  theme.global.name.value = isDark.value ? 'dayone' : 'dayoneDark'
+}
 </script>
 
 
@@ -98,7 +109,7 @@ const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
     }
 }
 .nav-drawer{
-    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    border-right: 1px solid rgba(var(--v-theme-on-surface), 0.08);
 
     .title-tile{
         display: flex;
@@ -112,15 +123,20 @@ const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
             }
         }
     }
-    .text-primary{
-        background-image: none;
-        color: inherit !important;
-    }
+}
+.brand-link{
+    color: inherit;
 }
 .top-bar{
     backdrop-filter: blur(10px);
 }
 .nav-item{
     margin: 4px 8px;
+}
+.nav-item--active{
+    font-weight: 700;
+}
+.theme-toggle{
+    margin-right: 6px;
 }
 </style>

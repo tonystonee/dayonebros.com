@@ -3,14 +3,14 @@
 <div>
     <v-expand-transition>
         <v-card class="top-ten" v-if="videoList">
-            <v-toolbar color="barColor" :class="darken" class="text-white">
-                <v-toolbar-title>Top 10 
+            <v-toolbar class="top-ten-toolbar">
+                <v-toolbar-title>Top 10 Videos
                     <span v-if="category">in {{category}}</span>
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
 
-                <v-icon color="white">whatshot</v-icon>
+                <v-icon>whatshot</v-icon>
             </v-toolbar>
 
             <v-list class="pt-0" lines="two">
@@ -23,7 +23,7 @@
                                     class="top-ten-item"
                                     @click="selectVideo(item, index)"
                                     :class="{
-                                        'bg-blue-lighten-5 text-blue': item.active,
+                                        'top-ten-item--active': item.active,
                                     }"
                                 >
                                     <template #prepend>
@@ -45,11 +45,10 @@
         </v-card>
     </v-expand-transition>
     <v-card v-if="!videoList">
-            <v-row class="white pa-3" justify="center">
+            <v-row class="pa-3" justify="center">
                     <v-progress-circular
                         class="py-5"
                         indeterminate
-                        color="primary"
                     ></v-progress-circular>
             </v-row>
     </v-card>
@@ -71,7 +70,7 @@ const emit = defineEmits<{
   (e: 'selectVideo', item: VideoItem, index: number): void
 }>()
 
-const { category, darken } = useCategory()
+const { category } = useCategory()
 
 const selectVideo = (item: VideoItem, index: number) => {
   emit('selectVideo', item, index)
@@ -79,7 +78,7 @@ const selectVideo = (item: VideoItem, index: number) => {
 </script>
  <style lang="scss">
     .top-ten{
-        background: #fff;
+        background: rgb(var(--v-theme-surface));
     }
     .top-ten-item{
         align-items: flex-start;
@@ -88,12 +87,16 @@ const selectVideo = (item: VideoItem, index: number) => {
         padding: 10px 12px;
         border-radius: 12px;
         transition: background 120ms ease, box-shadow 120ms ease, transform 120ms ease;
-        border: 1px solid rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
     }
     .top-ten-item:hover{
-        background: rgba(0, 0, 0, 0.02);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        background: rgba(var(--v-theme-on-surface), 0.04);
+        box-shadow: 0 6px 18px rgba(var(--v-theme-on-surface), 0.16);
         transform: translateY(-1px);
+    }
+    .top-ten-item--active{
+        box-shadow: 0 10px 26px rgba(var(--v-theme-on-surface), 0.22);
+        border-color: rgba(var(--v-theme-on-surface), 0.18);
     }
     .top-ten-thumb{
         width: 88px;
@@ -101,7 +104,7 @@ const selectVideo = (item: VideoItem, index: number) => {
         object-fit: cover;
         border-radius: 8px;
         margin-right: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 4px 10px rgba(var(--v-theme-on-surface), 0.18);
     }
     .top-ten-title{
         display: -webkit-box;

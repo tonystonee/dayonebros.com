@@ -3,7 +3,6 @@
         <v-responsive :aspect-ratio="16/9">
             <v-sheet
                 class="screen pa-0 ma-0"
-                color="blue-grey-darken-2"
             >
                 <v-scale-transition  origin="center, center">
                     <div v-if="video && url" :style="styleObject">
@@ -55,6 +54,7 @@ const url = computed(() => {
     border: 0px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    background-color: rgb(var(--v-theme-surface));
     height: 100%;
     width: 100%;
     div{

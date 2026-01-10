@@ -6,9 +6,7 @@
     >
 
       <v-card>
-        <v-card-title
-          class="text-h5 bg-grey-lighten-2"
-        >
+        <v-card-title class="text-h5">
           Error
         </v-card-title>
 
@@ -16,11 +14,7 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            variant="text"
-            @click="internalDialog = false"
-          >
+          <v-btn variant="text" @click="internalDialog = false">
             OKAY
           </v-btn>
         </v-card-actions>
