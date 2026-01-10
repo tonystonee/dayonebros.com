@@ -1,4 +1,5 @@
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import slugify from 'slugify'
 import categories from '@/config/categories'
 

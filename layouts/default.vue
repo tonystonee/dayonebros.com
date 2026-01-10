@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import slugify from 'slugify'
 import { useTheme } from 'vuetify'
 import AppFooter from '@/components/AppFooter.vue'
