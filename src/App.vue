@@ -1,35 +1,40 @@
 <template>
   <v-app>
     <navbar/>
-    <v-content class="main-wrapper">
+    <v-main class="main-wrapper">
       <router-view></router-view>
-    </v-content>
+    </v-main>
     <app-footer/>
   </v-app>
 </template>
 
 <script>
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useTheme } from 'vuetify'
 import AppFooter from '@/components/AppFooter'
 import Navbar from './components/Navbar'
-import colors from 'vuetify/lib/util/colors';
+
 export default {
   name: 'App',
   components: {
     AppFooter,
     Navbar,
   },
-  data () {
-    return {
-      //
-    }
-  },
-  watch: {
-    $route: {
-        handler(){
-          this.$vuetify.theme.barColor = this.$route.matched[0].props.default.primary;
-        },
-        immediate: true,
-    },
+  setup () {
+    const route = useRoute()
+    const theme = useTheme()
+
+    watch(
+      () => route.matched,
+      () => {
+        const primary = route.matched[0]?.props?.default?.primary
+        if (primary) {
+          theme.global.current.value.colors.barColor = primary
+        }
+      },
+      { immediate: true }
+    )
   }
 }
 </script>

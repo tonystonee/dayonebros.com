@@ -1,15 +1,13 @@
-import Vue from 'vue'
 import slugify from 'slugify'
-import Router from 'vue-router'
-import Category from './views/Category'
-import Home from './views/Home'
-import Terms from './views/Terms'
-import Copyright from './views/Copyright'
-import Privacy from '@/views/Privacy'
+import { createRouter, createWebHistory } from 'vue-router'
+import Category from './views/Category.vue'
+import Home from './views/Home.vue'
+import Terms from './views/Terms.vue'
+import Copyright from './views/Copyright.vue'
+import Privacy from '@/views/Privacy.vue'
 import categories from '@/config/categories'
-import colors from 'vuetify/es5/util/colors'
 
-Vue.use(Router);
+const barColor = '#F44336'
 
 function desc(category){
   return `The top ${category} videos of the day.`;
@@ -49,7 +47,7 @@ const routes = [
     name: 'home',
     component: Home,
     props: {
-      primary: colors.red,
+      primary: barColor,
     },
     meta: {
       title: 'Home - Day One Bros',
@@ -67,7 +65,7 @@ const routes = [
     name: 'terms',
     component: Terms,
     props: {
-      primary: colors.red,
+      primary: barColor,
     },
     meta: {
       title: 'Day One Bros - terms of service',
@@ -84,7 +82,7 @@ const routes = [
     name: 'copyright',
     component: Copyright,
     props: {
-      primary: colors.red,
+      primary: barColor,
     },
     meta: {
       title: 'Day One Bros - copyright',
@@ -101,7 +99,7 @@ const routes = [
     name: 'privacy',
     component: Privacy,
     props: {
-      primary: colors.red,
+      primary: barColor,
     },
     meta: {
       title: 'Day One Bros - privacy',
@@ -113,15 +111,14 @@ const routes = [
       ],
     },
   },
-  { path: '*', redirect: '/' }
+  { path: '/:pathMatch(.*)*', redirect: '/' }
 ];
 
 console.log(routes)
 
-const router = new Router({
+const router = createRouter({
   routes,
-  base: process.env.BASE_URL,
-  mode: 'history'
+  history: createWebHistory()
 });
 
 // This callback runs before every route change, including on page load.
