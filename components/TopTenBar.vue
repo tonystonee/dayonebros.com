@@ -20,17 +20,17 @@
                             <div v-bind="props">
                                 <v-list-item
                                     :key="item.title"
-                                    class="py-2 px-0"
+                                    class="top-ten-item"
                                     @click="selectVideo(item, index)"
                                     :class="{
                                         'bg-blue-lighten-5 text-blue': item.active,
                                     }"
                                 >
                                     <template #prepend>
-                                        <img class="mr-2 thumb" :src="item.thumbnails.medium.url" alt="">
+                                        <img class="top-ten-thumb" :src="item.thumbnails.medium.url" alt="">
                                     </template>
-                                    <v-list-item-title class="text-body-2">{{item.title}}</v-list-item-title>
-                                    <v-list-item-subtitle class="text-caption">{{item.channelTitle}}</v-list-item-subtitle>
+                                    <v-list-item-title class="top-ten-title text-body-2">{{item.title}}</v-list-item-title>
+                                    <v-list-item-subtitle class="top-ten-subtitle text-caption">{{item.channelTitle}}</v-list-item-subtitle>
                                 </v-list-item>
                             </div>
                         </template>
@@ -79,19 +79,43 @@ const selectVideo = (item: VideoItem, index: number) => {
 </script>
  <style lang="scss">
     .top-ten{
-       .v-list-item {
-            align-items: flex-start;
-            height: auto;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        .thumb{
-            width: 20%;
-            min-width: 100px;
-        }
-        [role="listitem"]{
-            cursor: pointer;
-        }
+        background: #fff;
+    }
+    .top-ten-item{
+        align-items: flex-start;
+        height: auto;
+        margin: 6px 8px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        transition: background 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .top-ten-item:hover{
+        background: rgba(0, 0, 0, 0.02);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
+    }
+    .top-ten-thumb{
+        width: 88px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+    .top-ten-title{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+    }
+    .top-ten-subtitle{
+        opacity: 0.7;
+    }
+    [role="listitem"]{
+        cursor: pointer;
     }
  </style>
  
