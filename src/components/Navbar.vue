@@ -29,20 +29,20 @@
                     </template>
                     <v-list-item-title>{{ item.text }}</v-list-item-title>
                 </v-list-item>
-                <v-divider :class="{barColor: !isHome, 'lighten-3': !isHome}"></v-divider>
+                <v-divider :color="isHome ? undefined : 'barColor'"></v-divider>
             </v-list>
         </v-navigation-drawer>
 
         <v-app-bar
             :color="navColor"
             density="comfortable"
-            flat
+            elevation="0"
         >
             <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
             <v-icon class="ml-2 mr-0 navicon" :color="iconColor">fas fa-play-circle</v-icon>
             <v-toolbar-title class="title ml-2 mr-5 align-center ">
                 <router-link :to="{name: 'home'}" :class="textColor">DayOneBros &nbsp;</router-link>
-                <span v-if="category" :class="textColor" class="subheading">{{category}}</span>
+                <span v-if="category" :class="textColor" class="text-subtitle-1">{{category}}</span>
             </v-toolbar-title>
         </v-app-bar>
     </div>
@@ -129,7 +129,7 @@
             }
         }
     }
-    .primary--text{
+    .text-primary{
         background-image: none;
         color: inherit !important;
     }

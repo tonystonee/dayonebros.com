@@ -4,8 +4,8 @@
             <v-expansion-panels v-if="video" v-model="panel" multiple>
                 <v-expansion-panel>
                     <div class="pt-3 px-3 pb-2 d-flex flex-column">
-                        <h2 class="title font-weight-regular">{{video.title}}</h2>
-                        <h3 class="subheading text-grey-darken-3">{{video.channelTitle}}</h3>
+                        <h2 class="text-h5 font-weight-regular">{{video.title}}</h2>
+                        <h3 class="text-subtitle-1 text-grey-darken-3">{{video.channelTitle}}</h3>
                     </div>
                     <v-expansion-panel-title class="font-weight-bold">
                         <template #default>

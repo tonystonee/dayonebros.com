@@ -2,8 +2,8 @@
     <div>
         <v-responsive :aspect-ratio="16/9">
             <v-sheet
-                class="screen darken-2 pa-0 ma-0"
-                color="blue-grey"
+                class="screen pa-0 ma-0"
+                color="blue-grey-darken-2"
             >
                 <v-scale-transition  origin="center, center">
                     <div v-if="video && url" :style="styleObject">

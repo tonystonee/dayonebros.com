@@ -15,7 +15,7 @@ export function useCategory () {
     if (route.name === 'home') {
       return null
     }
-    return 'darken-2'
+    return 'bg-barColor-darken-2'
   })
 
   return { category, darken }

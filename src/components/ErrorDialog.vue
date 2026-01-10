@@ -7,8 +7,7 @@
 
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
-          primary-title
+          class="text-h5 bg-grey-lighten-2"
         >
           Error
         </v-card-title>
@@ -19,7 +18,7 @@
             <v-spacer></v-spacer>
           <v-btn
             color="primary"
-            flat
+            variant="text"
             @click="internalDialog = false"
           >
             OKAY

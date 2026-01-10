@@ -35,7 +35,7 @@
                             </div>
                         </template>
                         <span>
-                            <h3 class="subtitle">
+                            <h3 class="text-subtitle-2">
                                 {{item.title}}
                             </h3>
                         </span>
