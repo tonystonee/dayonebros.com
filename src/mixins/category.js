@@ -11,10 +11,10 @@ export default {
     watch: {
         $route: {
             handler(){
-                if(this.$router.history.current.name == "home"){
+                if(this.$route.name == "home"){
                     this.category = null;
                 } else {
-                    this.category = this.$router.history.current.name;
+                    this.category = this.$route.name;
                 }
             },
             immediate: true,

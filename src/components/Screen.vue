@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import StaticScreen from '@/components/StaticScreen'
+    import StaticScreen from '@/components/StaticScreen.vue'
     export default {
         name: 'Screen',
         props: {

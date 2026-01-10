@@ -1,4 +1,13 @@
-import colors from 'vuetify/es5/util/colors'
+const colors = {
+  red: '#F44336',
+  blue: '#2196F3',
+  yellow: '#FFEB3B',
+  pink: '#E91E63',
+  lightBlue: '#03A9F4',
+  lightGreen: '#8BC34A',
+  green: '#4CAF50'
+}
+
 export default [
   {
     name: 'Auto',

@@ -1,22 +1,23 @@
 <template>
 <v-container fluid>
-    <error-dialog :error="error" :dialog="dialog"></error-dialog>
-    <v-layout row wrap>
-        <v-flex xs12 md8 :class="{'pr-4': $vuetify.breakpoint.mdAndUp}">
+    <error-dialog :error="error" v-model:dialog="dialog"></error-dialog>
+    <v-row>
+        <v-col cols="12" md="8" :class="{'pr-4': mdAndUp}">
           <player @random="random" :video="currentVideo"/>  
-        </v-flex>
-        <v-flex xs12 md4>
+        </v-col>
+        <v-col cols="12" md="4">
             <top-ten-bar @selectVideo="changeVideo" :activeVideo="activeVideo" :videoList="topTen"/>
-        </v-flex>
-    </v-layout>
+        </v-col>
+    </v-row>
 </v-container>
 </template>
 
 <script>
 import axios from 'axios';
-import ErrorDialog from '@/components/ErrorDialog'
-import Player from '@/components/Player' 
-import TopTenBar from '@/components/TopTenBar' 
+import { useDisplay, useGoTo } from 'vuetify'
+import ErrorDialog from '@/components/ErrorDialog.vue'
+import Player from '@/components/Player.vue' 
+import TopTenBar from '@/components/TopTenBar.vue' 
 
 export default {
     name: 'Page',
@@ -50,13 +51,19 @@ export default {
         Player,
         TopTenBar,
     },
+    setup () {
+        const { mdAndUp } = useDisplay()
+        const goTo = useGoTo()
+
+        return { mdAndUp, goTo }
+    },
     methods: {
         $_selectFrom(lowerValue, upperValue){
             var choices = upperValue-lowerValue + 1;
             return Math.floor(Math.random() * choices +lowerValue);
         },
         $_toTop(){
-            this.$vuetify.goTo(0, {
+            this.goTo(0, {
                 duration: 220,
                 offset: 0,
                 easing: 'linear',

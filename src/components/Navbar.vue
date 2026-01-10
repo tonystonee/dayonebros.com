@@ -2,17 +2,15 @@
     <div>
         <v-navigation-drawer
             v-if="nav"
-            class="nav-drawer lighten-5 "
-            :class="navColor"
+            class="nav-drawer"
+            :color="navColor"
             v-model="drawer"
-            fixed
-            clipped
             width="230"
-            app
+            temporary
         >
-            <v-list dense class="py-0">
-                <v-toolbar flat :color="navColor" class="darken-2 hidden-lg-and-up title-tile">
-                    <v-toolbar-side-icon @click.stop="drawer = !drawer" class="mx-1"></v-toolbar-side-icon>
+            <v-list density="compact" class="py-0">
+                <v-toolbar :color="navColor" class="title-tile">
+                    <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mx-1" />
                     <v-icon class="mx-0" :color="iconColor">fas fa-play-circle</v-icon>
                     <v-toolbar-title class="title ml-1 mr-5 align-center ">
                         <router-link :to="{name: 'home'}" :class="textColor">DayOneBros &nbsp;</router-link>
@@ -20,36 +18,33 @@
                     <v-divider></v-divider>
                 </v-toolbar>
                 <v-divider></v-divider>
-                <v-list-tile v-for="item in items" :key="item.text" color="black" :to="{path: item.slug}" ripple >
-                    <v-list-tile-action>
+                <v-list-item
+                    v-for="item in items"
+                    :key="item.text"
+                    :to="{path: item.slug}"
+                    class="nav-item"
+                >
+                    <template #prepend>
                         <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>
-                        {{ item.text }}
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
+                    </template>
+                    <v-list-item-title>{{ item.text }}</v-list-item-title>
+                </v-list-item>
                 <v-divider :class="{barColor: !isHome, 'lighten-3': !isHome}"></v-divider>
             </v-list>
         </v-navigation-drawer>
 
-        <v-toolbar
+        <v-app-bar
             :color="navColor"
-            class="darken-2"
-            dense
+            density="comfortable"
             flat
-            fixed
-            clipped-left
-            app
         >
-            <v-toolbar-side-icon v-if="nav" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
             <v-icon class="ml-2 mr-0 navicon" :color="iconColor">fas fa-play-circle</v-icon>
             <v-toolbar-title class="title ml-2 mr-5 align-center ">
                 <router-link :to="{name: 'home'}" :class="textColor">DayOneBros &nbsp;</router-link>
                 <span v-if="category" :class="textColor" class="subheading">{{category}}</span>
             </v-toolbar-title>
-        </v-toolbar>
+        </v-app-bar>
     </div>
 </template>
 
@@ -88,9 +83,9 @@
             },
             textColor(){
                 if(this.$route.name == "home"){
-                    return 'black--text';
+                    return 'text-black';
                 } else{
-                    return 'white--text';
+                    return 'text-white';
                 }
             },
             iconColor(){

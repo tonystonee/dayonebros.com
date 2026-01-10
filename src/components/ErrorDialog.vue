@@ -1,7 +1,7 @@
   <template>
       <v-dialog
     class="error-dialog"
-    v-model="dialog"
+    v-model="internalDialog"
     width="500"
     >
 
@@ -20,7 +20,7 @@
           <v-btn
             color="primary"
             flat
-            @click="dialog = false"
+            @click="internalDialog = false"
           >
             OKAY
           </v-btn>
@@ -45,6 +45,17 @@
               default: false,
           }
       },
+      emits: ['update:dialog'],
+      computed: {
+        internalDialog: {
+          get () {
+            return this.dialog
+          },
+          set (value) {
+            this.$emit('update:dialog', value)
+          }
+        }
+      }
   }
   </script>
   

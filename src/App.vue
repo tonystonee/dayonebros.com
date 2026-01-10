@@ -12,8 +12,8 @@
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
-import AppFooter from '@/components/AppFooter'
-import Navbar from './components/Navbar'
+import AppFooter from '@/components/AppFooter.vue'
+import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',

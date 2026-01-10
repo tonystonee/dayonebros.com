@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import Screen from '@/components/Screen'
-    import VideoDetails from '@/components/VideoDetails'
+    import Screen from '@/components/Screen.vue'
+    import VideoDetails from '@/components/VideoDetails.vue'
     import Category from '@/mixins/category'
     export default {
         name: 'Player',

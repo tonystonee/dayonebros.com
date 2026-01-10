@@ -3,33 +3,25 @@
     height="auto"
     color="grey"
   >
-    <v-layout
-      justify-center
-      row
-      wrap
-    >
+    <v-row justify="center">
       <v-btn
         v-for="link in links"
         :key="link.name"
         :to="link.path"
         color="white"
-        class="caption"
-        flat
-        small
+        class="text-caption"
+        variant="text"
+        size="small"
       >
         {{ link.name }}
       </v-btn>
-      <v-flex
-        grey
-        lighten-2
-        py-1
-        text-xs-center
-        black--text
-        xs12
+      <v-col
+        cols="12"
+        class="bg-grey-lighten-2 py-1 text-center text-black"
       >
         &copy;2019 — <strong>Day One Bros</strong>
-      </v-flex>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-footer>
 </template>
 
@@ -57,4 +49,3 @@
     })
   }
 </script>
-
