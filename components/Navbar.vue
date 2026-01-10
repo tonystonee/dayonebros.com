@@ -11,7 +11,7 @@
             <v-list density="compact" class="py-0">
                 <v-toolbar :color="navColor" class="title-tile">
                     <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mx-1" />
-                    <v-icon class="mx-0" :color="iconColor">fas fa-play-circle</v-icon>
+                    <v-icon class="mx-0" :color="iconColor">mdi-play-circle</v-icon>
                     <v-toolbar-title class="title ml-1 mr-5 align-center ">
                         <NuxtLink to="/" :class="textColor">DayOneBros &nbsp;</NuxtLink>
                     </v-toolbar-title>
@@ -23,23 +23,26 @@
                     :key="item.text"
                     :to="{path: item.slug}"
                     class="nav-item"
+                    rounded="lg"
+                    :active="currentPath === item.slug"
+                    active-color="barColor"
                 >
                     <template #prepend>
-                        <v-icon>{{ item.icon }}</v-icon>
+                        <v-icon size="20">{{ item.icon }}</v-icon>
                     </template>
                     <v-list-item-title>{{ item.text }}</v-list-item-title>
                 </v-list-item>
-                <v-divider :color="isHome ? undefined : 'barColor'"></v-divider>
             </v-list>
         </v-navigation-drawer>
 
         <v-app-bar
             :color="navColor"
             density="comfortable"
-            elevation="0"
+            elevation="1"
+            class="top-bar"
         >
             <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
-            <v-icon class="ml-2 mr-0 navicon" :color="iconColor">fas fa-play-circle</v-icon>
+            <v-icon class="ml-2 mr-0 navicon" :color="iconColor">mdi-play-circle</v-icon>
             <v-toolbar-title class="title ml-2 mr-5 align-center ">
                 <NuxtLink to="/" :class="textColor">DayOneBros &nbsp;</NuxtLink>
                 <span v-if="category" :class="textColor" class="text-subtitle-1">{{category}}</span>
@@ -63,16 +66,16 @@ defineProps<{ source?: string }>()
 
 const drawer = ref<boolean | null>(null)
 const items: NavItem[] = [
-  { icon: 'trending_up', text: 'News', slug: '/news' },
-  { icon: 'fas fa-laugh-squint', text: 'Comedy', slug: '/comedy' },
-  { icon: 'fas fa-football-ball', text: 'Sports', slug: '/sports' },
-  { icon: 'drive_eta', text: 'Auto', slug: '/auto' },
-  { icon: 'audiotrack', text: 'Music', slug: '/music' },
-  { icon: 'fas fa-film', text: 'Film and Animation', slug: '/film-and-animation' },
-  { icon: 'videogame_asset', text: 'Gaming', slug: '/gaming' },
-  { icon: 'pets', text: 'Pets', slug: '/pets' },
-  { icon: 'fas fa-flask', text: 'Science', slug: '/science' },
-  { icon: 'fas fa-graduation-cap', text: 'Education', slug: '/education' },
+  { icon: 'mdi-newspaper-variant-outline', text: 'News', slug: '/news' },
+  { icon: 'mdi-emoticon-happy-outline', text: 'Comedy', slug: '/comedy' },
+  { icon: 'mdi-football', text: 'Sports', slug: '/sports' },
+  { icon: 'mdi-car', text: 'Auto', slug: '/auto' },
+  { icon: 'mdi-music', text: 'Music', slug: '/music' },
+  { icon: 'mdi-movie-open-outline', text: 'Film and Animation', slug: '/film-and-animation' },
+  { icon: 'mdi-gamepad-variant-outline', text: 'Gaming', slug: '/gaming' },
+  { icon: 'mdi-paw', text: 'Pets', slug: '/pets' },
+  { icon: 'mdi-flask-outline', text: 'Science', slug: '/science' },
+  { icon: 'mdi-school-outline', text: 'Education', slug: '/education' },
 ]
 
 const route = useRoute()
@@ -81,6 +84,7 @@ const { category } = useCategory()
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
 const isHome = computed(() => route.path === '/')
+const currentPath = computed(() => route.path)
 const textColor = computed(() => (route.path === '/' ? 'text-black' : 'text-white'))
 const iconColor = computed(() => (route.path === '/' ? 'red' : 'white'))
 const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
@@ -94,6 +98,7 @@ const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
     }
 }
 .nav-drawer{
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
 
     .title-tile{
         display: flex;
@@ -111,5 +116,11 @@ const navColor = computed(() => (route.path === '/' ? 'white' : 'barColor'))
         background-image: none;
         color: inherit !important;
     }
+}
+.top-bar{
+    backdrop-filter: blur(10px);
+}
+.nav-item{
+    margin: 4px 8px;
 }
 </style>
