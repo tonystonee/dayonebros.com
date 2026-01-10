@@ -8,7 +8,7 @@
         <template #activator="{ props }">
             <v-btn
                 v-bind="props"
-                @click="$emit('random')"
+                @click="emit('random')"
                 size="large"
                 rounded="pill"
                 color="barColor"
@@ -30,27 +30,21 @@
 </div>
 </template>
 
-<script>
-    import Screen from '@/components/Screen.vue'
-    import VideoDetails from '@/components/VideoDetails.vue'
-    import { useCategory } from '@/composables/useCategory'
-    export default {
-        name: 'Player',
-        props: {
-            video: {
-                type: Object,
-                default: null,
-            },
-        },
-        components: {
-            Screen,
-            VideoDetails,
-        },
-        setup () {
-            const { category, darken } = useCategory()
-            return { category, darken }
-        },
-    }
+<script setup lang="ts">
+import Screen from '@/components/Screen.vue'
+import VideoDetails from '@/components/VideoDetails.vue'
+import { useCategory } from '@/composables/useCategory'
+import type { VideoItem } from '@/types/video'
+
+defineProps<{
+  video: VideoItem | null
+}>()
+
+const emit = defineEmits<{
+  (e: 'random'): void
+}>()
+
+const { category, darken } = useCategory()
 </script>
 
 <style lang="scss">

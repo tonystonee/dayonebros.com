@@ -4,14 +4,17 @@ import { useRoute } from 'vue-router'
 export function useCategory () {
   const route = useRoute()
 
-  const category = computed(() => {
+  const category = computed<string | null>(() => {
     if (route.name === 'home') {
       return null
     }
-    return route.name ?? null
+    if (!route.name) {
+      return null
+    }
+    return route.name.toString()
   })
 
-  const darken = computed(() => {
+  const darken = computed<string | null>(() => {
     if (route.name === 'home') {
       return null
     }

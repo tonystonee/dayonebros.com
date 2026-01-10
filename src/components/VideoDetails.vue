@@ -35,20 +35,15 @@
 </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            video: {
-                type: Object,
-                default: null,
-            }
-        },
-        data(){
-            return {
-                panel: [],
-            };
-        },
-    }
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { VideoItem } from '@/types/video'
+
+defineProps<{
+  video: VideoItem | null
+}>()
+
+const panel = ref<number[]>([])
 </script>
 
 <style lang="scss">

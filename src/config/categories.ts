@@ -8,7 +8,13 @@ const colors = {
   green: '#4CAF50'
 }
 
-export default [
+export type CategoryConfig = {
+  name: string
+  categoryId: number
+  color: string
+}
+
+const categories: CategoryConfig[] = [
   {
     name: 'Auto',
     categoryId: 2,
@@ -59,4 +65,6 @@ export default [
     categoryId: 28,
     color: colors.green,
   },
-];
+]
+
+export default categories

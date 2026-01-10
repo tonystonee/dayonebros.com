@@ -32,29 +32,24 @@
     </v-dialog>
   </template>
   
-  <script>
-  export default {
-      props: {
-          error: {
-              type: String,
-              default: null,
-          },
-          dialog: {
-              type: Boolean,
-              default: false,
-          }
-      },
-      emits: ['update:dialog'],
-      computed: {
-        internalDialog: {
-          get () {
-            return this.dialog
-          },
-          set (value) {
-            this.$emit('update:dialog', value)
-          }
-        }
-      }
-  }
+  <script setup lang="ts">
+  import { computed } from 'vue'
+
+  const props = withDefaults(defineProps<{
+    error: string | null
+    dialog: boolean
+  }>(), {
+    error: null,
+    dialog: false
+  })
+
+  const emit = defineEmits<{
+    (e: 'update:dialog', value: boolean): void
+  }>()
+
+  const internalDialog = computed({
+    get: () => props.dialog,
+    set: (value: boolean) => emit('update:dialog', value)
+  })
   </script>
   

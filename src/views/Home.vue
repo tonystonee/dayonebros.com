@@ -2,22 +2,16 @@
     <page :uri="uri" :maxResults="maxResults"/>
 </template>
 
-<script>
-    import Page from '@/components/Page.vue'
-    export default {
-        name: 'Home',
-        components: {
-            Page,
-        },
-        data(){
-            return {
-                maxResults: 50,
-            };
-        },
-        computed: {
-            uri(){
-                return `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${this.maxResults}&key=${this.$store.state.key}`;
-            },
-        },
-    }
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+import Page from '@/components/Page.vue'
+import type { RootState } from '@/store'
+
+const store = useStore<RootState>()
+const maxResults = ref(50)
+
+const uri = computed(() => {
+  return `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=${maxResults.value}&key=${store.state.key}`
+})
 </script>

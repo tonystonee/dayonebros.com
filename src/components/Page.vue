@@ -12,107 +12,104 @@
 </v-container>
 </template>
 
-<script>
-import axios from 'axios';
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import axios from 'axios'
 import { useDisplay, useGoTo } from 'vuetify'
 import ErrorDialog from '@/components/ErrorDialog.vue'
-import Player from '@/components/Player.vue' 
-import TopTenBar from '@/components/TopTenBar.vue' 
+import Player from '@/components/Player.vue'
+import TopTenBar from '@/components/TopTenBar.vue'
+import type { VideoItem } from '@/types/video'
 
-export default {
-    name: 'Page',
-    props: {
-        uri: {
-            type: String,
-            required: true,
-        },
-    },
-    data(){
-        return {
-            currentVideo: null,
-            videos: null,
-            topTen: null,
-            panel: [false],
-            activeVideo: 0,
-            dialog: false,
-            error: null,
-        };
-    },
-    watch:{
-        uri:{
-            handler(value){
-                this.getVideos(value)
-            },
-            immediate: true,
-        },
-    },
-    components: {
-        ErrorDialog,
-        Player,
-        TopTenBar,
-    },
-    setup () {
-        const { mdAndUp } = useDisplay()
-        const goTo = useGoTo()
+const props = defineProps<{
+  uri: string
+  maxResults?: number
+}>()
 
-        return { mdAndUp, goTo }
-    },
-    methods: {
-        $_selectFrom(lowerValue, upperValue){
-            var choices = upperValue-lowerValue + 1;
-            return Math.floor(Math.random() * choices +lowerValue);
-        },
-        $_toTop(){
-            this.goTo(0, {
-                duration: 220,
-                offset: 0,
-                easing: 'linear',
-            });
-        },
-        random(){
-            // remove active video in top ten
-            if(this.activeVideo > -1){
-                this.topTen[this.activeVideo].active = false;
-                this.activeVideo = -1;
-            }
+const currentVideo = ref<VideoItem | null>(null)
+const videos = ref<VideoItem[] | null>(null)
+const topTen = ref<VideoItem[] | null>(null)
+const activeVideo = ref(0)
+const dialog = ref(false)
+const error = ref<string | null>(null)
 
-            this.currentVideo = 
-            this.videos[this.$_selectFrom(0, this.videos.length-1)];
-        },
-        getVideos(uri){
-            const self = this;
-            axios.get(uri)
-            .then(function (response) {
-                // handle success
-                self.videos = response.data.items.map(item => {
-                    return {
-                        active: false,
-                        id: item.id,
-                        ...item.snippet
-                    };
-                });
-                self.topTen = self.videos.slice(0, 10);
-                self.topTen[0].active = true;
-                self.currentVideo = self.topTen[0];
-            })
-            .catch(function (xhr) {
-                // handle error
-                self.dialog = true;
-                self.error = xhr.response.data.error;
-            });
-        },
-        changeVideo(video, index){
-            if(this.activeVideo > -1){
-                this.topTen[this.activeVideo].active = false;
-            }
-            video.active = true;
-            this.activeVideo = index;
-            this.currentVideo = video;
+const { mdAndUp } = useDisplay()
+const goTo = useGoTo()
 
-            this.$_toTop();
-        },
-    },
+const selectFrom = (lowerValue: number, upperValue: number) => {
+  const choices = upperValue - lowerValue + 1
+  return Math.floor(Math.random() * choices + lowerValue)
 }
+
+const toTop = () => {
+  goTo(0, {
+    duration: 220,
+    offset: 0,
+    easing: 'linear',
+  })
+}
+
+const random = () => {
+  if (!videos.value || !topTen.value) {
+    return
+  }
+
+  if (activeVideo.value > -1) {
+    topTen.value[activeVideo.value].active = false
+    activeVideo.value = -1
+  }
+
+  currentVideo.value = videos.value[selectFrom(0, videos.value.length - 1)]
+}
+
+const getVideos = async (uri: string) => {
+  try {
+    const response = await axios.get(uri)
+    const items = response.data.items as Array<{
+      id: VideoItem['id']
+      snippet: Omit<VideoItem, 'id' | 'active'>
+    }>
+    const mapped = items.map((item) => ({
+      active: false,
+      id: item.id,
+      ...item.snippet,
+    })) as VideoItem[]
+
+    videos.value = mapped
+    topTen.value = mapped.slice(0, 10)
+    if (topTen.value.length > 0) {
+      topTen.value[0].active = true
+      currentVideo.value = topTen.value[0]
+    } else {
+      currentVideo.value = null
+    }
+  } catch (xhr: any) {
+    dialog.value = true
+    const message = xhr?.response?.data?.error ?? xhr?.message ?? 'Unknown error'
+    error.value = typeof message === 'string' ? message : JSON.stringify(message)
+  }
+}
+
+const changeVideo = (video: VideoItem, index: number) => {
+  if (!topTen.value) {
+    return
+  }
+  if (activeVideo.value > -1) {
+    topTen.value[activeVideo.value].active = false
+  }
+  video.active = true
+  activeVideo.value = index
+  currentVideo.value = video
+  toTop()
+}
+
+watch(
+  () => props.uri,
+  (value) => {
+    getVideos(value)
+  },
+  { immediate: true }
+)
 </script>
 
 <style lang="scss">

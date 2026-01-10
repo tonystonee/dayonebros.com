@@ -8,35 +8,26 @@
   </v-app>
 </template>
 
-<script>
+<script setup lang="ts">
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 import AppFooter from '@/components/AppFooter.vue'
 import Navbar from './components/Navbar.vue'
 
-export default {
-  name: 'App',
-  components: {
-    AppFooter,
-    Navbar,
-  },
-  setup () {
-    const route = useRoute()
-    const theme = useTheme()
+const route = useRoute()
+const theme = useTheme()
 
-    watch(
-      () => route.matched,
-      () => {
-        const primary = route.matched[0]?.props?.default?.primary
-        if (primary) {
-          theme.global.current.value.colors.barColor = primary
-        }
-      },
-      { immediate: true }
-    )
-  }
-}
+watch(
+  () => route.matched,
+  () => {
+    const primary = route.matched[0]?.props?.default?.primary as string | undefined
+    if (primary) {
+      theme.global.current.value.colors.barColor = primary
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <style>

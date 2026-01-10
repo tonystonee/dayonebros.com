@@ -56,29 +56,26 @@
 </div>
 </template>
 
-<script>
-    import { useCategory } from '@/composables/useCategory'
-    export default {
-        props: {
-            videoList: {
-                type: Array,
-                default: null,
-            },
-            activeVideo: {
-                type: Number,
-                required: true,
-            },
-        },
-        setup () {
-            const { category, darken } = useCategory()
-            return { category, darken }
-        },
-        methods: {
-            selectVideo(item, index){
-                this.$emit('selectVideo', item, index);
-            },
-        },
-    }
+<script setup lang="ts">
+import { useCategory } from '@/composables/useCategory'
+import type { VideoItem } from '@/types/video'
+
+withDefaults(defineProps<{
+  videoList: VideoItem[] | null
+  activeVideo: number
+}>(), {
+  videoList: null
+})
+
+const emit = defineEmits<{
+  (e: 'selectVideo', item: VideoItem, index: number): void
+}>()
+
+const { category, darken } = useCategory()
+
+const selectVideo = (item: VideoItem, index: number) => {
+  emit('selectVideo', item, index)
+}
 </script>
  <style lang="scss">
     .top-ten{

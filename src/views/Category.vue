@@ -2,25 +2,20 @@
     <page :uri="uri"/>
 </template>
 
-<script>
-    import Page from '@/components/Page.vue'
-    export default {
-        name:  'CategoryPage',
-        components: {
-            Page,
-        },
-        data(){
-            return {
-                maxResults: 50,
-            };
-        },
-        computed: {
-            categoryId(){
-                return this.$route.matched[0].props.default.categoryId;
-            },
-            uri(){
-                return `${this.$store.state.categoryEndpoint}?part=snippet&maxResults=${this.maxResults}&orderBy=viewCount&regionCode=us&relevanceLanguage=en&type=video&videoCategoryId=${this.categoryId}&key=${this.$store.state.key}`;
-            },
-        },
-    }
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+import Page from '@/components/Page.vue'
+import type { RootState } from '@/store'
+
+const props = defineProps<{
+  categoryId: number
+}>()
+
+const store = useStore<RootState>()
+const maxResults = ref(50)
+
+const uri = computed(() => {
+  return `${store.state.categoryEndpoint}?part=snippet&maxResults=${maxResults.value}&orderBy=viewCount&regionCode=us&relevanceLanguage=en&type=video&videoCategoryId=${props.categoryId}&key=${store.state.key}`
+})
 </script>

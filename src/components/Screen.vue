@@ -17,41 +17,36 @@
     </div>
 </template>
 
-<script>
-    import StaticScreen from '@/components/StaticScreen.vue'
-    export default {
-        name: 'Screen',
-        props: {
-            video: {
-                type: Object,
-                default: null,
-            },
-        },
+<script setup lang="ts">
+import { computed } from 'vue'
+import StaticScreen from '@/components/StaticScreen.vue'
+import type { VideoItem } from '@/types/video'
 
-        components: {
-            StaticScreen,
-        },
-        computed: {
-            styleObject() {
-                if (this.video){
-                    return {
-                        backgroundImage: 
-                        `url("${this.video.thumbnails.maxres ? 
-                            this.video.thumbnails.maxres.url : this.video.thumbnails.medium.url}")`,
-                        backgroundSize: 'cover',
-                    }
-                } 
-                return null;
-            },
-            url(){
-                if (this.video){
-                    const videoId = this.video.id.videoId ? this.video.id.videoId : this.video.id;
-                    return `https://www.youtube.com/embed/${videoId}?rel=0&amp;showinfo=0`;
-                }
-                return null;
-            },
-        }
-    }
+const props = defineProps<{
+  video: VideoItem | null
+}>()
+
+const styleObject = computed(() => {
+  if (!props.video) {
+    return null
+  }
+
+  const thumb = props.video.thumbnails.maxres ?? props.video.thumbnails.medium
+  return {
+    backgroundImage: `url("${thumb.url}")`,
+    backgroundSize: 'cover',
+  }
+})
+
+const url = computed(() => {
+  if (!props.video) {
+    return null
+  }
+  const videoId = typeof props.video.id === 'string'
+    ? props.video.id
+    : props.video.id.videoId
+  return `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0`
+})
 </script>
 
 <style lang="scss">

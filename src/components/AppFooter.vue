@@ -25,27 +25,28 @@
   </v-footer>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      links: [
-        {
-          name: 'Home',
-          path: '/',
-        },
-        {
-          name: 'Terms',
-          path: '/terms',
-        },
-        {
-          name: 'Copyright',
-          path: '/copyright',
-        },
-        {
-          name: 'Privacy',
-          path: '/privacy',
-        }
-      ],
-    })
+<script setup lang="ts">
+type FooterLink = {
+  name: string
+  path: string
+}
+
+const links: FooterLink[] = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  {
+    name: 'Terms',
+    path: '/terms',
+  },
+  {
+    name: 'Copyright',
+    path: '/copyright',
+  },
+  {
+    name: 'Privacy',
+    path: '/privacy',
   }
+]
 </script>

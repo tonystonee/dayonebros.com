@@ -48,64 +48,45 @@
     </div>
 </template>
 
-<script>
-    import { useCategory } from '@/composables/useCategory'
-    export default {
-        name: 'Navbar',
-        props: {
-            source: String,
-        },
-        data: () => ({
-            drawer: null,
-            category: null,
-            items: [
-                { icon: 'trending_up', text: 'News', slug: 'news' },
-                { icon: 'fas fa-laugh-squint', text: 'Comedy', slug: 'comedy' },
-                { icon: 'fas fa-football-ball', text: 'Sports', slug: 'sports' },
-                { icon: 'drive_eta', text: 'Auto', slug: 'auto' },
-                { icon: 'audiotrack', text: 'Music', slug: 'music' },
-                { icon: 'fas fa-film', text: 'Film and Animation', slug: 'film-and-animation' },
-                { icon: 'videogame_asset', text: 'Gaming', slug: 'gaming' },
-                { icon: 'pets', text: 'Pets', slug: 'pets' },
-                { icon: 'fas fa-flask', text: 'Science', slug: 'science' },
-                { icon: 'fas fa-graduation-cap', text: 'Education', slug: 'education' },
-            ],
-        }), 
-        setup () {
-            const { category, darken } = useCategory()
-            return { category, darken }
-        },
-        computed:{
-            nav(){
-                return !(this.$route.name == "terms" || this.$route.name == "copyright" ||
-                this.$route.name == "privacy");
-            },
-            isHome(){
-                return this.$route.name == "home";
-            },
-            textColor(){
-                if(this.$route.name == "home"){
-                    return 'text-black';
-                } else{
-                    return 'text-white';
-                }
-            },
-            iconColor(){
-                if(this.$route.name == "home"){
-                    return 'red';
-                } else{
-                    return 'white';
-                }
-            },
-            navColor(){
-                if(this.$route.name == "home"){
-                    return 'white';
-                } else{
-                    return 'barColor';
-                }
-            },
-        },
-    };
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCategory } from '@/composables/useCategory'
+
+type NavItem = {
+  icon: string
+  text: string
+  slug: string
+}
+
+defineProps<{ source?: string }>()
+
+const drawer = ref<boolean | null>(null)
+const items: NavItem[] = [
+  { icon: 'trending_up', text: 'News', slug: 'news' },
+  { icon: 'fas fa-laugh-squint', text: 'Comedy', slug: 'comedy' },
+  { icon: 'fas fa-football-ball', text: 'Sports', slug: 'sports' },
+  { icon: 'drive_eta', text: 'Auto', slug: 'auto' },
+  { icon: 'audiotrack', text: 'Music', slug: 'music' },
+  { icon: 'fas fa-film', text: 'Film and Animation', slug: 'film-and-animation' },
+  { icon: 'videogame_asset', text: 'Gaming', slug: 'gaming' },
+  { icon: 'pets', text: 'Pets', slug: 'pets' },
+  { icon: 'fas fa-flask', text: 'Science', slug: 'science' },
+  { icon: 'fas fa-graduation-cap', text: 'Education', slug: 'education' },
+]
+
+const route = useRoute()
+const { category } = useCategory()
+
+const nav = computed(() => !(
+  route.name === 'terms' ||
+  route.name === 'copyright' ||
+  route.name === 'privacy'
+))
+const isHome = computed(() => route.name === 'home')
+const textColor = computed(() => (route.name === 'home' ? 'text-black' : 'text-white'))
+const iconColor = computed(() => (route.name === 'home' ? 'red' : 'white'))
+const navColor = computed(() => (route.name === 'home' ? 'white' : 'barColor'))
 </script>
 
 
