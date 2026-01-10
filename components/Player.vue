@@ -13,10 +13,11 @@
                 rounded="pill"
                 color="barColor"
                 :class="darken"
-                class="random-btn text-white ml-0 mt-3 px-3"
+                class="random-btn text-white ml-0 mt-3 px-4"
+                variant="elevated"
             >
-                <v-icon class="mr-2">cached</v-icon>
-                Random
+                <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
+                Random Pick
             </v-btn>
         </template>
         <span>
@@ -49,7 +50,9 @@ const { category, darken } = useCategory()
 
 <style lang="scss">
     .random-btn{
-        letter-spacing: 5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
     }
     .player {
         .player-progress{
