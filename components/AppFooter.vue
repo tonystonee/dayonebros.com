@@ -1,27 +1,37 @@
 <template>
   <v-footer
     height="auto"
-    color="grey"
+    class="footer"
   >
-    <v-row justify="center">
-      <v-btn
-        v-for="link in links"
-        :key="link.name"
-        :to="link.path"
-        color="white"
-        class="text-caption"
-        variant="text"
-        size="small"
-      >
-        {{ link.name }}
-      </v-btn>
-      <v-col
-        cols="12"
-        class="bg-grey-lighten-2 py-1 text-center text-black"
-      >
-        &copy;2019 — <strong>Day One Bros</strong>
-      </v-col>
-    </v-row>
+    <v-container class="py-3">
+      <v-row align="center" justify="space-between">
+        <v-col cols="12" md="6" class="text-center text-md-left">
+          <div class="footer-brand">
+            <span class="footer-mark">▶</span>
+            <span class="footer-name">Day One Bros</span>
+          </div>
+          <p class="footer-tagline text-caption">
+            Fresh top‑ten video picks, updated daily.
+          </p>
+        </v-col>
+        <v-col cols="12" md="6" class="text-center text-md-right">
+          <v-btn
+            v-for="link in links"
+            :key="link.name"
+            :to="link.path"
+            class="footer-link"
+            variant="text"
+            size="small"
+          >
+            {{ link.name }}
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-divider class="my-2" />
+      <div class="footer-meta text-caption text-center">
+        &copy;2019 — <strong>Day One Bros</strong>. All rights reserved.
+      </div>
+    </v-container>
   </v-footer>
 </template>
 
@@ -50,3 +60,44 @@ const links: FooterLink[] = [
   }
 ]
 </script>
+
+<style scoped lang="scss">
+.footer{
+  background: linear-gradient(135deg, #f8f8f8 0%, #ececec 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.footer-brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.footer-mark{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-size: 10px;
+}
+.footer-name{
+  font-size: 15px;
+}
+.footer-tagline{
+  margin: 4px 0 0;
+  opacity: 0.75;
+}
+.footer-link{
+  margin: 0 4px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  min-width: 0;
+}
+.footer-meta{
+  opacity: 0.7;
+}
+</style>
