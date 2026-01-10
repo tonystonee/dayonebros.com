@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 export default defineNuxtConfig({
   css: ['vuetify/styles', '@mdi/font/css/materialdesignicons.css'],
   build: {
@@ -6,6 +8,17 @@ export default defineNuxtConfig({
   vite: {
     ssr: {
       noExternal: ['vuetify']
+    },
+    resolve: {
+      alias: {
+        '#app-manifest': resolve(__dirname, 'app-manifest')
+      }
+    }
+  },
+  compatibilityDate: '2026-01-10',
+  postcss: {
+    plugins: {
+      autoprefixer: {}
     }
   },
   runtimeConfig: {

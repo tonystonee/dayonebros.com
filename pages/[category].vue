@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { createError, definePageMeta, showError, useHead, useRuntimeConfig } from '#imports'
+import { createError, showError, useHead, useRuntimeConfig } from '#imports'
 import slugify from 'slugify'
 import Page from '@/components/Page.vue'
 import categories from '@/config/categories'
@@ -26,10 +26,6 @@ watchEffect(() => {
     showError(createError({ statusCode: 404, statusMessage: 'Category not found' }))
   }
 })
-
-definePageMeta(() => ({
-  barColor: category.value?.color ?? '#F44336'
-}))
 
 useHead(() => ({
   title: `DayOneBros: ${category.value?.name ?? 'Category'}`,
