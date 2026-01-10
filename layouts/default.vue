@@ -1,27 +1,36 @@
 <template>
   <v-app>
-    <navbar/>
+    <Navbar />
     <v-main class="main-wrapper">
-      <router-view></router-view>
+      <slot />
     </v-main>
-    <app-footer/>
+    <AppFooter />
   </v-app>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, watch } from 'vue'
+import slugify from 'slugify'
 import { useTheme } from 'vuetify'
 import AppFooter from '@/components/AppFooter.vue'
-import Navbar from './components/Navbar.vue'
+import Navbar from '@/components/Navbar.vue'
+import categories from '@/config/categories'
 
 const route = useRoute()
 const theme = useTheme()
 
+const barColor = computed(() => {
+  if (route.path === '/') {
+    return '#F44336'
+  }
+  const slug = route.params.category?.toString() ?? ''
+  const match = categories.find((item) => slugify(item.name) === slug)
+  return match?.color ?? '#F44336'
+})
+
 watch(
-  () => route.matched,
-  () => {
-    const primary = route.matched[0]?.props?.default?.primary as string | undefined
+  barColor,
+  (primary) => {
     if (primary) {
       theme.global.current.value.colors.barColor = primary
     }

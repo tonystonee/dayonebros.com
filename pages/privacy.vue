@@ -12,3 +12,19 @@
         <p>IF you have any questions or concerns, contact us <a href="contact">here</a>.</p>
     </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  barColor: '#F44336'
+})
+
+useHead({
+  title: 'Day One Bros - privacy',
+  meta: [
+    {
+      name: 'description',
+      content: 'Fake privacy'
+    }
+  ]
+})
+</script>

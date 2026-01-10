@@ -111,3 +111,19 @@
         </ol>
     </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  barColor: '#F44336'
+})
+
+useHead({
+  title: 'Day One Bros - terms of service',
+  meta: [
+    {
+      name: 'description',
+      content: 'Fake terms of service'
+    }
+  ]
+})
+</script>

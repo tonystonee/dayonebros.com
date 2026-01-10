@@ -14,7 +14,6 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import axios from 'axios'
 import { useDisplay, useGoTo } from 'vuetify'
 import ErrorDialog from '@/components/ErrorDialog.vue'
 import Player from '@/components/Player.vue'
@@ -62,33 +61,46 @@ const random = () => {
   currentVideo.value = videos.value[selectFrom(0, videos.value.length - 1)]
 }
 
-const getVideos = async (uri: string) => {
-  try {
-    const response = await axios.get(uri)
-    const items = response.data.items as Array<{
-      id: VideoItem['id']
-      snippet: Omit<VideoItem, 'id' | 'active'>
-    }>
-    const mapped = items.map((item) => ({
-      active: false,
-      id: item.id,
-      ...item.snippet,
-    })) as VideoItem[]
-
-    videos.value = mapped
-    topTen.value = mapped.slice(0, 10)
-    if (topTen.value.length > 0) {
-      topTen.value[0].active = true
-      currentVideo.value = topTen.value[0]
-    } else {
-      currentVideo.value = null
-    }
-  } catch (xhr: any) {
-    dialog.value = true
-    const message = xhr?.response?.data?.error ?? xhr?.message ?? 'Unknown error'
-    error.value = typeof message === 'string' ? message : JSON.stringify(message)
-  }
+type YouTubeResponse = {
+  items: Array<{
+    id: VideoItem['id']
+    snippet: Omit<VideoItem, 'id' | 'active'>
+  }>
 }
+
+const { data, error: fetchError } = await useFetch<YouTubeResponse>(() => {
+  return props.uri || null
+}, {
+  watch: [() => props.uri]
+})
+
+watch([data, fetchError], () => {
+  if (fetchError.value) {
+    dialog.value = true
+    const message = (fetchError.value as any)?.message ?? 'Unknown error'
+    error.value = typeof message === 'string' ? message : JSON.stringify(message)
+    return
+  }
+
+  if (!data.value) {
+    return
+  }
+
+  const mapped = data.value.items.map((item) => ({
+    active: false,
+    id: item.id,
+    ...item.snippet,
+  })) as VideoItem[]
+
+  videos.value = mapped
+  topTen.value = mapped.slice(0, 10)
+  if (topTen.value.length > 0) {
+    topTen.value[0].active = true
+    currentVideo.value = topTen.value[0]
+  } else {
+    currentVideo.value = null
+  }
+}, { immediate: true })
 
 const changeVideo = (video: VideoItem, index: number) => {
   if (!topTen.value) {
@@ -102,14 +114,6 @@ const changeVideo = (video: VideoItem, index: number) => {
   currentVideo.value = video
   toTop()
 }
-
-watch(
-  () => props.uri,
-  (value) => {
-    getVideos(value)
-  },
-  { immediate: true }
-)
 </script>
 
 <style lang="scss">

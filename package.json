@@ -3,25 +3,20 @@
   "version": "1.1.1",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
     "lint": "eslint . --ext .js,.ts,.vue",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "axios": "^1.7.7",
     "@mdi/font": "^7.4.47",
+    "nuxt": "^3.12.4",
     "slugify": "^1.6.6",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.5",
-    "vuetify": "^3.7.3",
-    "vuex": "^4.1.0"
+    "vuetify": "^3.7.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.4",
     "@types/node": "^22.10.2",
-    "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.20",
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
@@ -29,9 +24,6 @@
     "eslint-plugin-vue": "^9.28.0",
     "postcss": "^8.4.47",
     "sass": "^1.80.3",
-    "typescript": "^5.7.2",
-    "vite": "^5.4.10",
-    "vite-plugin-vuetify": "^2.0.4",
-    "vue-tsc": "^2.1.8"
+    "typescript": "^5.7.2"
   }
 }
