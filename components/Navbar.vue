@@ -10,9 +10,10 @@
             <v-list density="compact" class="py-0">
                 <v-toolbar class="title-tile">
                     <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mx-1" />
-                    <v-icon class="mx-0">mdi-play-circle</v-icon>
-                    <v-toolbar-title class="title ml-1 mr-5 align-center ">
-                        <NuxtLink to="/">DayOneBros &nbsp;</NuxtLink>
+                    <v-toolbar-title class="title ml-1 mr-5 align-center">
+                        <NuxtLink to="/" class="brand-link">
+                            <img class="brand-logo" :src="logoUrl" alt="DayOneBros logo" />
+                        </NuxtLink>
                     </v-toolbar-title>
                     <v-divider></v-divider>
                 </v-toolbar>
@@ -40,9 +41,10 @@
             class="top-bar"
         >
             <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
-            <v-icon class="ml-2 mr-0 navicon">mdi-play-circle</v-icon>
-            <v-toolbar-title class="title ml-2 mr-5 align-center ">
-                <NuxtLink to="/" class="brand-link">DayOneBros &nbsp;</NuxtLink>
+            <v-toolbar-title class="title ml-2 mr-5 align-center">
+                <NuxtLink to="/" class="brand-link">
+                    <img class="brand-logo" :src="logoUrl" alt="DayOneBros logo" />
+                </NuxtLink>
                 <span v-if="category" class="text-subtitle-1">{{category}}</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -64,6 +66,7 @@ import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
+import logoUrl from '@/assets/logo.png'
 
 type NavItem = {
   icon: string
@@ -112,12 +115,10 @@ const toggleTheme = () => {
     border-right: 1px solid rgba(var(--v-theme-on-surface), 0.08);
 
     .title-tile{
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        height: 48px;
+        height: 56px;
         .v-toolbar__content{
-            padding: 0;
+            padding: 0 8px;
+            align-items: center;
             .title{
                 font-size: 16px !important;
             }
@@ -126,6 +127,18 @@ const toggleTheme = () => {
 }
 .brand-link{
     color: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+}
+.brand-logo{
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+    border-radius: 10px;
 }
 .top-bar{
     backdrop-filter: blur(10px);
