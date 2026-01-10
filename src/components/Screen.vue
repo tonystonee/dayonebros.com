@@ -1,8 +1,7 @@
 <template>
     <div>
         <v-responsive :aspect-ratio="16/9">
-            <v-alert 
-                :value="true"
+            <v-sheet
                 class="screen darken-2 pa-0 ma-0"
                 color="blue-grey"
             >
@@ -12,7 +11,7 @@
                     </div>
                 </v-scale-transition>
                 <static-screen v-if="!video"></static-screen>
-            </v-alert>
+            </v-sheet>
         </v-responsive>
         <v-progress-linear v-if="!video" height="8" :indeterminate="true" class="player-progress mt-1 mb-0 pt-1"></v-progress-linear>
     </div>
@@ -57,7 +56,7 @@
 
 <style lang="scss">
 
-.v-alert{
+.screen{
     border: 0px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

@@ -49,10 +49,9 @@
 </template>
 
 <script>
-    import Category from '@/mixins/category';
+    import { useCategory } from '@/composables/useCategory'
     export default {
         name: 'Navbar',
-        mixins: [Category],
         props: {
             source: String,
         },
@@ -72,7 +71,10 @@
                 { icon: 'fas fa-graduation-cap', text: 'Education', slug: 'education' },
             ],
         }), 
-        
+        setup () {
+            const { category, darken } = useCategory()
+            return { category, darken }
+        },
         computed:{
             nav(){
                 return !(this.$route.name == "terms" || this.$route.name == "copyright" ||

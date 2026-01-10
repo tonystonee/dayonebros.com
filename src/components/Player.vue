@@ -4,11 +4,21 @@
         <screen :video="video"/>
     </div>
 
-    <v-tooltip top  >
-        <v-btn @click="$emit('random')" slot="activator" large round color="barColor" :class="darken" class="random-btn white--text ml-0 mt-3 px-3">
-            <v-icon class="mr-2">cached</v-icon>
-            Random
-        </v-btn>
+    <v-tooltip location="top">
+        <template #activator="{ props }">
+            <v-btn
+                v-bind="props"
+                @click="$emit('random')"
+                size="large"
+                rounded="pill"
+                color="barColor"
+                :class="darken"
+                class="random-btn text-white ml-0 mt-3 px-3"
+            >
+                <v-icon class="mr-2">cached</v-icon>
+                Random
+            </v-btn>
+        </template>
         <span>
             Fetch a random <span class="text-lowercase" v-if="category">{{category}}</span> video 
         </span>
@@ -23,10 +33,9 @@
 <script>
     import Screen from '@/components/Screen.vue'
     import VideoDetails from '@/components/VideoDetails.vue'
-    import Category from '@/mixins/category'
+    import { useCategory } from '@/composables/useCategory'
     export default {
         name: 'Player',
-        mixins: [Category],
         props: {
             video: {
                 type: Object,
@@ -36,6 +45,10 @@
         components: {
             Screen,
             VideoDetails,
+        },
+        setup () {
+            const { category, darken } = useCategory()
+            return { category, darken }
         },
     }
 </script>

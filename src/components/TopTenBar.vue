@@ -57,9 +57,8 @@
 </template>
 
 <script>
-    import Category from '@/mixins/category'
+    import { useCategory } from '@/composables/useCategory'
     export default {
-        mixins: [Category],
         props: {
             videoList: {
                 type: Array,
@@ -69,6 +68,10 @@
                 type: Number,
                 required: true,
             },
+        },
+        setup () {
+            const { category, darken } = useCategory()
+            return { category, darken }
         },
         methods: {
             selectVideo(item, index){
