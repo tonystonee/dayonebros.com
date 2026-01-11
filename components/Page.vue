@@ -67,6 +67,15 @@ const error = ref<string | null>(null)
 const { mdAndUp } = useDisplay()
 const goTo = useGoTo()
 const { $logger } = useNuxtApp()
+const logError = (errorValue: unknown, message: string) => {
+  if ($logger?.logError) {
+    $logger.logError(errorValue, message)
+    return
+  }
+  // Fallback for early/SSR cases where $logger isn't injected.
+  // eslint-disable-next-line no-console
+  console.error(errorValue, message)
+}
 
 const selectFrom = (lowerValue: number, upperValue: number) => {
   const choices = upperValue - lowerValue + 1
@@ -120,7 +129,7 @@ watch([data, fetchError], () => {
         ? (errorValue as { message: string }).message
         : 'Unknown error'
     error.value = message.replace(/key=([^&]+)/g, 'key=REDACTED')
-    $logger.logError(errorValue, message)
+    logError(errorValue, message)
     return
   }
   if (!data.value) {

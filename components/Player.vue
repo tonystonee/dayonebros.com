@@ -57,7 +57,8 @@
             </v-tooltip>
         </div>
 
-        <share-dialog  
+        <ShareDialog  
+            v-if="isMounted"
             v-model:dialog="shareDialog" 
             :video-url="shareUrl"
         />
@@ -65,8 +66,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Screen from '@/components/Screen.vue'
+import ShareDialog from '@/components/ShareDialog.vue'
 import { useCategory } from '@/composables/useCategory'
 import type { VideoItem } from '@/types/video'
 
@@ -79,6 +81,7 @@ const emit = defineEmits<{
 }>()
 
 const { category } = useCategory()
+const isMounted = ref(false)
 const shareDialog = ref(false)
 
 const shareUrl = computed(() => {
@@ -89,6 +92,10 @@ const shareUrl = computed(() => {
     ? props.video.id
     : props.video.id.videoId
   return `https://www.youtube.com/watch?v=${videoId}`
+})
+
+onMounted(() => {
+  isMounted.value = true
 })
 </script>
 
