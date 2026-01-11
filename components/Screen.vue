@@ -4,15 +4,27 @@
             <v-sheet
                 class="screen pa-0 ma-0"
             >
-                <v-scale-transition  origin="center, center">
-                    <div v-if="video && url" :style="styleObject">
-                      <iframe :src="url" frameborder="0" allowfullscreen=""></iframe>
+                <v-scale-transition origin="center, center">
+                    <div
+                        v-if="video && url"
+                        :style="styleObject"
+                    >
+                        <iframe
+                            :src="url"
+                            frameborder="0"
+                            allowfullscreen=""
+                        />
                     </div>
                 </v-scale-transition>
-                <static-screen v-if="!video"></static-screen>
+                <static-screen v-if="!video" />
             </v-sheet>
         </v-responsive>
-        <v-progress-linear v-if="!video" height="8" :indeterminate="true" class="player-progress mt-1 mb-0 pt-1"></v-progress-linear>
+        <v-progress-linear
+            v-if="!video"
+            height="8"
+            :indeterminate="true"
+            class="player-progress mt-1 mb-0 pt-1"
+        />
     </div>
 </template>
 
@@ -20,6 +32,8 @@
 import { computed } from 'vue'
 import StaticScreen from '@/components/StaticScreen.vue'
 import type { VideoItem } from '@/types/video'
+
+defineOptions({ name: 'VideoScreen' })
 
 const props = defineProps<{
   video: VideoItem | null

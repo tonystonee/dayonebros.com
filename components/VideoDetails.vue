@@ -1,15 +1,21 @@
 <template>
-<div class="videoDetails">
-    <v-slide-y-transition>
-            <h2 class="details-title">{{video.title}}</h2>
-    </v-slide-y-transition>
-    <v-row v-if="!video" class="pa-3" justify="center">
+    <div class="videoDetails">
+        <v-slide-y-transition>
+            <h2 class="details-title">
+                {{ video.title }}
+            </h2>
+        </v-slide-y-transition>
+        <v-row
+            v-if="!video"
+            class="pa-3"
+            justify="center"
+        >
             <v-progress-circular
                 class="py-5"
                 indeterminate
-            ></v-progress-circular>
-    </v-row>
-</div>
+            />
+        </v-row>
+    </div>
 </template>
 
 <script setup lang="ts">

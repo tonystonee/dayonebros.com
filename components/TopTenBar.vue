@@ -1,58 +1,79 @@
 
 <template>
-<div>
-    <v-expand-transition>
-        <v-card class="top-ten" v-if="videoList">
-            <v-toolbar class="top-ten-toolbar">
-                <v-toolbar-title>Top 10 Videos
-                    <span v-if="category">in {{category}}</span>
-                </v-toolbar-title>
+    <div>
+        <v-expand-transition>
+            <v-card
+                v-if="videoList"
+                class="top-ten"
+            >
+                <v-toolbar class="top-ten-toolbar">
+                    <v-toolbar-title>
+                        Top 10 Videos
+                        <span v-if="category">in {{ category }}</span>
+                    </v-toolbar-title>
 
-                <v-spacer></v-spacer>
+                    <v-spacer />
 
-                <v-icon>whatshot</v-icon>
-            </v-toolbar>
+                    <v-icon>whatshot</v-icon>
+                </v-toolbar>
 
-            <v-list class="pt-0" lines="two">
-                <template v-for="(item, index) in videoList" :key="index">
-                    <v-tooltip location="left">
-                        <template #activator="{ props }">
-                            <div v-bind="props">
-                                <v-list-item
-                                    :key="item.title"
-                                    class="top-ten-item"
-                                    @click="selectVideo(item, index)"
-                                    :class="{
-                                        'top-ten-item--active': item.active,
-                                    }"
-                                >
-                                    <template #prepend>
-                                        <img class="top-ten-thumb" :src="item.thumbnails.medium.url" alt="">
-                                    </template>
-                                    <v-list-item-title class="top-ten-title text-body-2">{{item.title}}</v-list-item-title>
-                                    <v-list-item-subtitle class="top-ten-subtitle text-caption">{{item.channelTitle}}</v-list-item-subtitle>
-                                </v-list-item>
-                            </div>
-                        </template>
-                        <span>
-                            <h3 class="text-subtitle-2">
-                                {{item.title}}
-                            </h3>
-                        </span>
-                    </v-tooltip>
-                </template>
-            </v-list>
-        </v-card>
-    </v-expand-transition>
-    <v-card v-if="!videoList">
-            <v-row class="pa-3" justify="center">
-                    <v-progress-circular
-                        class="py-5"
-                        indeterminate
-                    ></v-progress-circular>
+                <v-list
+                    class="pt-0"
+                    lines="two"
+                >
+                    <template
+                        v-for="(item, index) in videoList"
+                        :key="index"
+                    >
+                        <v-tooltip location="left">
+                            <template #activator="{ props }">
+                                <div v-bind="props">
+                                    <v-list-item
+                                        :key="item.title"
+                                        class="top-ten-item"
+                                        :class="{
+                                            'top-ten-item--active': item.active,
+                                        }"
+                                        @click="selectVideo(item, index)"
+                                    >
+                                        <template #prepend>
+                                            <img
+                                                class="top-ten-thumb"
+                                                :src="item.thumbnails.medium.url"
+                                                alt=""
+                                            >
+                                        </template>
+                                        <v-list-item-title class="top-ten-title text-body-2">
+                                            {{ item.title }}
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle class="top-ten-subtitle text-caption">
+                                            {{ item.channelTitle }}
+                                        </v-list-item-subtitle>
+                                    </v-list-item>
+                                </div>
+                            </template>
+                            <span>
+                                <h3 class="text-subtitle-2">
+                                    {{ item.title }}
+                                </h3>
+                            </span>
+                        </v-tooltip>
+                    </template>
+                </v-list>
+            </v-card>
+        </v-expand-transition>
+        <v-card v-if="!videoList">
+            <v-row
+                class="pa-3"
+                justify="center"
+            >
+                <v-progress-circular
+                    class="py-5"
+                    indeterminate
+                />
             </v-row>
-    </v-card>
-</div>
+        </v-card>
+    </div>
 </template>
 
 <script setup lang="ts">

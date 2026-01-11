@@ -1,10 +1,16 @@
 <template>
-    <page :uri="uri" :maxResults="maxResults"/>
+    <page
+        :uri="uri"
+        :max-results="maxResults"
+    />
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useHead, useRuntimeConfig } from '#imports'
 import Page from '@/components/Page.vue'
+
+defineOptions({ name: 'HomePage' })
 
 useHead({
   title: 'Home - Day One Bros',

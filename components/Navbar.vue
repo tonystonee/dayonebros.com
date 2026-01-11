@@ -2,22 +2,35 @@
     <div>
         <v-navigation-drawer
             v-if="nav"
-            class="nav-drawer"
             v-model="drawer"
+            class="nav-drawer"
             width="230"
             temporary
         >
-            <v-list density="compact" class="py-0">
+            <v-list
+                density="compact"
+                class="py-0"
+            >
                 <v-toolbar class="title-tile">
-                    <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="mx-1" />
+                    <v-app-bar-nav-icon
+                        class="mx-1"
+                        @click.stop="drawer = !drawer"
+                    />
                     <v-toolbar-title class="title ml-1 mr-5 align-center">
-                        <NuxtLink to="/" class="brand-link">
-                            <img class="brand-logo" :src="logoUrl" alt="DayOneBros logo" />
+                        <NuxtLink
+                            to="/"
+                            class="brand-link"
+                        >
+                            <img
+                                class="brand-logo"
+                                :src="logoUrl"
+                                alt="DayOneBros logo"
+                            >
                         </NuxtLink>
                     </v-toolbar-title>
-                    <v-divider></v-divider>
+                    <v-divider />
                 </v-toolbar>
-                <v-divider></v-divider>
+                <v-divider />
                 <v-list-item
                     v-for="item in items"
                     :key="item.text"
@@ -28,7 +41,9 @@
                     :class="{ 'nav-item--active': currentPath === item.slug }"
                 >
                     <template #prepend>
-                        <v-icon size="20">{{ item.icon }}</v-icon>
+                        <v-icon size="20">
+                            {{ item.icon }}
+                        </v-icon>
                     </template>
                     <v-list-item-title>{{ item.text }}</v-list-item-title>
                 </v-list-item>
@@ -40,20 +55,33 @@
             elevation="1"
             class="top-bar"
         >
-            <v-app-bar-nav-icon v-if="nav" @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon
+                v-if="nav"
+                @click.stop="drawer = !drawer"
+            />
             <v-toolbar-title class="title ml-2 mr-5 align-center">
-                <NuxtLink to="/" class="brand-link">
-                    <img class="brand-logo" :src="logoUrl" alt="DayOneBros logo" />
+                <NuxtLink
+                    to="/"
+                    class="brand-link"
+                >
+                    <img
+                        class="brand-logo"
+                        :src="logoUrl"
+                        alt="DayOneBros logo"
+                    >
                 </NuxtLink>
-                <span v-if="category" class="text-subtitle-1">{{category}}</span>
+                <span
+                    v-if="category"
+                    class="text-subtitle-1"
+                >{{ category }}</span>
             </v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
                 icon
                 variant="text"
                 class="theme-toggle"
-                @click="toggleTheme"
                 :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+                @click="toggleTheme"
             >
                 <v-icon>{{ isDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}</v-icon>
             </v-btn>
@@ -73,6 +101,8 @@ type NavItem = {
   text: string
   slug: string
 }
+
+defineOptions({ name: 'AppNavbar' })
 
 defineProps<{ source?: string }>()
 

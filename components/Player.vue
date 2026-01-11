@@ -1,36 +1,46 @@
 <template>
-<div>
-    <div class="player">
-        <screen :video="video"/>
-    </div>
+    <div>
+        <div class="player">
+            <screen :video="video" />
+        </div>
 
-    <div class="player-actions d-flex align-center flex-wrap mt-3">
-        <v-tooltip location="top">
-            <template #activator="{ props }">
-                <v-btn
-                    v-bind="props"
-                    @click="emit('random')"
-                    size="large"
-                    rounded="pill"
-                    class="random-btn ml-0 px-4"
-                    color="primary"
-                >
-                    <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
-                    Random
-                </v-btn>
-            </template>
-            <span>
-                Fetch a random <span class="text-lowercase" v-if="category">{{category}}</span> video 
-            </span>
-        </v-tooltip>
+        <div class="player-actions d-flex align-center flex-wrap mt-3">
+            <v-tooltip location="top">
+                <template #activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        size="large"
+                        rounded="pill"
+                        class="random-btn ml-0 px-4"
+                        color="primary"
+                        @click="emit('random')"
+                    >
+                        <v-icon
+                            class="mr-2"
+                            size="20"
+                        >
+                            mdi-shuffle-variant
+                        </v-icon>
+                        Random
+                    </v-btn>
+                </template>
+                <span>
+                    Fetch a random <span
+                        v-if="category"
+                        class="text-lowercase"
+                    >{{ category }}</span> video 
+                </span>
+            </v-tooltip>
+        </div>
     </div>
-</div>
 </template>
 
 <script setup lang="ts">
 import Screen from '@/components/Screen.vue'
 import { useCategory } from '@/composables/useCategory'
 import type { VideoItem } from '@/types/video'
+
+defineOptions({ name: 'VideoPlayer' })
 
 defineProps<{
   video: VideoItem | null

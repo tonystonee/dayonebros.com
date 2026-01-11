@@ -1,5 +1,5 @@
 <template>
-  <Page :uri="uri" />
+    <Page :uri="uri" />
 </template>
 
 <script setup lang="ts">
@@ -9,6 +9,8 @@ import { createError, showError, useHead, useRuntimeConfig } from '#imports'
 import slugify from 'slugify'
 import Page from '@/components/Page.vue'
 import categories from '@/config/categories'
+
+defineOptions({ name: 'CategoryPage' })
 
 const route = useRoute()
 const config = useRuntimeConfig()

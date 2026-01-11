@@ -1,5 +1,5 @@
 <template>
-    <canvas id="tv"></canvas>
+    <canvas id="tv" />
 </template>
 
 <script setup lang="ts">

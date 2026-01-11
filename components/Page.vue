@@ -1,24 +1,44 @@
 <template>
-<v-container fluid>
-    <error-dialog :error="error" v-model:dialog="dialog"></error-dialog>
-    <v-row>
-        <v-col cols="12" md="8" :class="{'pr-4': mdAndUp}">
-          <player @random="random" :video="currentVideo"/>  
-        </v-col>
-        <v-col cols="12" md="4">
-            <top-ten-bar @selectVideo="changeVideo" :activeVideo="activeVideo" :videoList="topTen"/>
-        </v-col>
-    </v-row>
-</v-container>
+    <v-container fluid>
+        <error-dialog
+            v-model:dialog="dialog"
+            :error="error"
+        />
+        <v-row>
+            <v-col
+                cols="12"
+                md="8"
+                :class="{'pr-4': mdAndUp}"
+            >
+                <player
+                    :video="currentVideo"
+                    @random="random"
+                />  
+            </v-col>
+            <v-col
+                cols="12"
+                md="4"
+            >
+                <top-ten-bar
+                    :active-video="activeVideo"
+                    :video-list="topTen"
+                    @select-video="changeVideo"
+                />
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useFetch } from '#imports'
 import { useDisplay, useGoTo } from 'vuetify'
 import ErrorDialog from '@/components/ErrorDialog.vue'
 import Player from '@/components/Player.vue'
 import TopTenBar from '@/components/TopTenBar.vue'
 import type { VideoItem } from '@/types/video'
+
+defineOptions({ name: 'AppPage' })
 
 const props = defineProps<{
   uri: string
@@ -77,8 +97,16 @@ const { data, error: fetchError } = await useFetch<YouTubeResponse>(() => {
 watch([data, fetchError], () => {
   if (fetchError.value) {
     dialog.value = true
-    const message = (fetchError.value as any)?.message ?? 'Unknown error'
-    error.value = typeof message === 'string' ? message : JSON.stringify(message)
+    const errorValue = fetchError.value
+    const message = errorValue instanceof Error
+      ? errorValue.message
+      : (typeof errorValue === 'object'
+        && errorValue !== null
+        && 'message' in errorValue
+        && typeof (errorValue as { message?: unknown }).message === 'string')
+        ? (errorValue as { message: string }).message
+        : 'Unknown error'
+    error.value = message
     return
   }
 
