@@ -1,21 +1,45 @@
 <template>
     <div class="pa-5">
         <h3>Privacy Policy</h3>
-        <p>No information is sold or released to anyone about visitors to Dayonebros.com without prior consent or a court order. In other words, no information is released to anyone unless you give permission first.</p>
-        <p>
-            Dayonebros.com does not attempt to collect information from children, nor can it determine whether
-            a user is a child.
+        <p class="seo-date">
+            Effective date: January 1, 2024
         </p>
         <p>
-            IP reports for advertisement clicks are shared with the advertiser. However, they usually have this information already since it is captured by their server when you view or click an ad. This is done to verify billing for the ads. 
-            No additional information associated with any specific user is provided to the advertisers.
+            DayOneBros respects your privacy. This policy explains what we collect, how we use it,
+            and your choices when you use the Site.
         </p>
-        <br>
-        <p>At Dayonebros.com, your privacy is important to us.</p>
-        <p class="center">
-            Contact
+        <h4>Information We Collect</h4>
+        <ul>
+            <li>Basic usage data such as pages viewed and referral sources.</li>
+            <li>Device and browser information for performance and security.</li>
+            <li>IP address for fraud prevention and rate limiting.</li>
+        </ul>
+        <h4>How We Use Information</h4>
+        <ul>
+            <li>To operate and improve the Site.</li>
+            <li>To monitor performance and prevent abuse.</li>
+            <li>To understand which content is most helpful to visitors.</li>
+        </ul>
+        <h4>Cookies and Analytics</h4>
+        <p>
+            We may use cookies or similar technologies to remember preferences and measure
+            site performance. You can control cookies through your browser settings.
         </p>
-        <p>IF you have any questions or concerns, contact us <a href="contact">here</a>.</p>
+        <h4>Third-Party Services</h4>
+        <p>
+            The Site links to third-party platforms (such as video providers). Their privacy
+            practices are governed by their own policies. We do not control or endorse them.
+        </p>
+        <h4>Children's Privacy</h4>
+        <p>
+            DayOneBros is not directed to children under 13. We do not knowingly collect
+            personal information from children.
+        </p>
+        <h4>Contact</h4>
+        <p>
+            If you have questions about this Privacy Policy, contact us
+            <a href="contact">here</a>.
+        </p>
     </div>
 </template>
 
@@ -25,11 +49,11 @@ import { useHead } from '#imports'
 defineOptions({ name: 'PrivacyPage' })
 
 useHead({
-  title: 'Day One Bros - privacy',
+  title: 'DayOneBros - privacy policy',
   meta: [
     {
       name: 'description',
-      content: 'Fake privacy'
+      content: 'Privacy policy for DayOneBros, including data use and cookies.'
     }
   ]
 })
