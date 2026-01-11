@@ -33,7 +33,6 @@
                     </v-toolbar-title>
                 </div>
                 <v-divider />
-                <v-divider />
                 <v-list-item
                     to="/"
                     class="nav-item"
@@ -78,19 +77,19 @@
                 @click.stop="drawer = !drawer"
             />
             <v-toolbar-title class="title ml-2 mr-5 align-center">
-                <div class="d-flex">
+                <div class="d-flex ">
                     <NuxtLink
                         to="/"
                         class="brand-link mt-2"
                     >
-                    <img
-                        v-if="isMounted"
-                        class="brand-logo"
-                        :src="logoUrl"
-                        alt="DayOneBros logo"
-                        width="60"
-                        height="60"
-                    >
+                        <img
+                            v-if="isMounted"
+                            class="brand-logo"
+                            :src="logoUrl"
+                            alt="DayOneBros logo"
+                            width="60"
+                            height="60"
+                        >
                     </NuxtLink>
                     <span
                         v-if="category"
@@ -98,7 +97,7 @@
                     >{{ category }}</span>
                     <span
                         v-if="category"
-                        class="category-label category-label--compact d-flex d-sm-none"
+                        class="category-label category-label--compact text-caption d-sm-none"
                     >{{ compactCategory }}</span>
                 </div>
             </v-toolbar-title>
@@ -247,6 +246,7 @@ onMounted(() => {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .top-bar{
     backdrop-filter: blur(10px);
 }
