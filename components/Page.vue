@@ -54,6 +54,7 @@ const error = ref<string | null>(null)
 
 const { mdAndUp } = useDisplay()
 const goTo = useGoTo()
+const { $logger } = useNuxtApp()
 
 const selectFrom = (lowerValue: number, upperValue: number) => {
   const choices = upperValue - lowerValue + 1
@@ -107,7 +108,7 @@ watch([data, fetchError], () => {
         ? (errorValue as { message: string }).message
         : 'Unknown error'
     error.value = message.replace(/key=([^&]+)/g, 'key=REDACTED')
-    console.error(errorValue, message)
+    $logger.logError(errorValue, message)
     return
   }
   if (!data.value) {
