@@ -4,25 +4,26 @@
         <screen :video="video"/>
     </div>
 
-    <v-tooltip location="top">
-        <template #activator="{ props }">
-            <v-btn
-                v-bind="props"
-                @click="emit('random')"
-                size="large"
-                rounded="pill"
-                class="random-btn ml-0 mt-3 px-4"
-                variant="elevated"
-            >
-                <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
-                Random Pick
-            </v-btn>
-        </template>
-        <span>
-            Fetch a random <span class="text-lowercase" v-if="category">{{category}}</span> video 
-        </span>
-    </v-tooltip>
-
+    <div class="player-actions d-flex align-center flex-wrap mt-3">
+        <v-tooltip location="top">
+            <template #activator="{ props }">
+                <v-btn
+                    v-bind="props"
+                    @click="emit('random')"
+                    size="large"
+                    rounded="pill"
+                    class="random-btn ml-0 px-4"
+                    color="primary"
+                >
+                    <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
+                    Random
+                </v-btn>
+            </template>
+            <span>
+                Fetch a random <span class="text-lowercase" v-if="category">{{category}}</span> video 
+            </span>
+        </v-tooltip>
+    </div>
 </div>
 </template>
 
