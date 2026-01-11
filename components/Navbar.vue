@@ -13,22 +13,22 @@
                 class="py-0"
             >
                 <div class="d-flex align-top">
-                <v-app-bar-nav-icon
-                    class="mx-1"
-                    @click.stop="drawer = !drawer"
-                />
-                <v-toolbar-title class="title ml-1 mr-5 align-center">
-                    <NuxtLink
-                        to="/"
-                        class="brand-link"
-                    >
-                        <img
-                            class="brand-logo"
-                            :src="logoUrl"
-                            alt="DayOneBros logo"
+                    <v-app-bar-nav-icon
+                        class="mx-1"
+                        @click.stop="drawer = !drawer"
+                    />
+                    <v-toolbar-title class="title ml-1 mr-5 align-center">
+                        <NuxtLink
+                            to="/"
+                            class="brand-link"
                         >
-                    </NuxtLink>
-                </v-toolbar-title>
+                            <img
+                                class="brand-logo"
+                                :src="logoUrl"
+                                alt="DayOneBros logo"
+                            >
+                        </NuxtLink>
+                    </v-toolbar-title>
                 </div>
                 <v-divider />
                 <v-divider />
@@ -76,20 +76,23 @@
                 @click.stop="drawer = !drawer"
             />
             <v-toolbar-title class="title ml-2 mr-5 align-center">
-                <NuxtLink
-                    to="/"
-                    class="brand-link mt-2"
-                >
-                    <img
-                        class="brand-logo"
-                        :src="logoUrl"
-                        alt="DayOneBros logo"
+                <div class="d-flex">
+                    <NuxtLink
+                        to="/"
+                        class="brand-link mt-2"
                     >
-                </NuxtLink>
-                <span
-                    v-if="category"
-                    class="text-subtitle-1"
-                >{{ category }}</span>
+                        <img
+                            class="brand-logo"
+                            :src="logoUrl"
+                            alt="DayOneBros logo"
+                        >
+                    </NuxtLink>
+                    <span
+                        v-if="category"
+                        class="mt-6"
+                    >{{ category }}</span>
+                </div>
+
             </v-toolbar-title>
             <v-spacer />
             <v-btn
