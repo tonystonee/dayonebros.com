@@ -4,7 +4,6 @@
         <v-expand-transition>
             <v-card
                 v-if="videoList"
-                class="top-ten"
             >
                 <v-toolbar class="top-ten-toolbar">
                     <v-toolbar-title>
@@ -108,7 +107,6 @@ const selectVideo = (item: VideoItem, index: number) => {
         padding: 10px 12px;
         border-radius: 12px;
         transition: background 120ms ease, box-shadow 120ms ease, transform 120ms ease;
-        border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
     }
     .top-ten-item:hover{
         background: rgba(var(--v-theme-on-surface), 0.04);
