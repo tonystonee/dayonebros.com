@@ -106,7 +106,7 @@ watch([data, fetchError], () => {
         && typeof (errorValue as { message?: unknown }).message === 'string')
         ? (errorValue as { message: string }).message
         : 'Unknown error'
-    error.value = message
+    error.value = message.replace(/key=([^&]+)/g, 'key=REDACTED')
     console.error(errorValue, message)
     return
   }
