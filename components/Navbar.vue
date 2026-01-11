@@ -94,8 +94,12 @@
                     </NuxtLink>
                     <span
                         v-if="category"
-                        class="mt-6"
+                        class="category-label d-none d-sm-flex"
                     >{{ category }}</span>
+                    <span
+                        v-if="category"
+                        class="category-label category-label--compact d-flex d-sm-none"
+                    >{{ compactCategory }}</span>
                 </div>
             </v-toolbar-title>
             <v-spacer />
@@ -115,7 +119,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { useTheme } from 'vuetify'
+import { useDisplay, useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
 import logoUrl from '@/assets/logo-navbar.png'
 
@@ -150,6 +154,7 @@ const items: NavItem[] = [
 ]
 
 const route = useRoute()
+const { smAndUp } = useDisplay()
 const theme = useTheme()
 const { category, categoryColor } = useCategory()
 
@@ -159,6 +164,17 @@ const currentPath = computed(() => route.path)
 const navColor = computed(() => (route.path === '/' ? undefined : 'primary'))
 const isDark = computed(() => theme.global.current.value.dark)
 const basePrimary = ref(theme.global.current.value.colors.primary)
+const compactCategory = computed(() => {
+  if (!category.value) {
+    return ''
+  }
+  if (smAndUp.value) {
+    return category.value
+  }
+  return category.value.length > 12
+    ? `${category.value.slice(0, 12)}…`
+    : category.value
+})
 
 watch(() => theme.global.name.value, () => {
   const themeEntry = theme.themes.value?.[theme.global.name.value]
@@ -217,6 +233,19 @@ onMounted(() => {
     height: 60px;
     object-fit: contain;
     border-radius: 10px;
+}
+.title .d-flex{
+    align-items: center;
+}
+.category-label{
+    text-transform: capitalize;
+    margin-left: 10px;
+}
+.category-label--compact{
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .top-bar{
     backdrop-filter: blur(10px);
