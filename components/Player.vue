@@ -4,52 +4,68 @@
             <screen :video="video" />
         </div>
 
-    <div class="player-actions d-flex align-center flex-wrap mt-3">
-        <v-tooltip location="top">
-            <template #activator="{ props }">
-                <v-btn
-                    v-bind="props"
-                    @click="emit('random')"
-                    size="large"
-                    rounded="pill"
-                    class="random-btn ml-0 px-4"
-                    variant="elevated"
-                >
-                    <v-icon class="mr-2" size="20">mdi-shuffle-variant</v-icon>
-                    Random Pick
-                </v-btn>
-            </template>
-            <span>
-                Fetch a random <span class="text-lowercase" v-if="category">{{category}}</span> video 
-            </span>
-        </v-tooltip>
+        <div class="player-actions d-flex align-center flex-wrap mt-3">
+            <v-tooltip location="top">
+                <template #activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        size="large"
+                        rounded="pill"
+                        class="random-btn ml-0 px-4"
+                        variant="elevated"
+                        @click="emit('random')"
+                    >
+                        <v-icon
+                            class="mr-2"
+                            size="20">
+                            mdi-shuffle-variant
+                        </v-icon>
+                        Random Pick
+                    </v-btn>
+                </template>
+                <span>
+                    Fetch a random 
+                    <span 
+                        v-if="category" 
+                        class="text-lowercase" 
+                    >
+                        {{ category }}
+                    </span> video 
+                </span>
+            </v-tooltip>
 
-        <v-tooltip location="top" v-if="shareUrl">
-            <template #activator="{ props }">
-                <v-btn
-                    v-bind="props"
-                    @click="shareDialog = true"
-                    size="large"
-                    class="share-btn ml-2"
-                    icon
-                    elevation="0"
-                >
-                    <v-icon color="primary" size="20">mdi-share-variant</v-icon>
-                </v-btn>
-            </template>
-            <span>Share this video</span>
-        </v-tooltip>
+            <v-tooltip location="top" v-if="shareUrl">
+                <template #activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        size="large"
+                        class="share-btn ml-2"
+                        icon
+                        elevation="0"
+                        @click="shareDialog = true"
+                    >
+                        <v-icon 
+                            color="primary" 
+                            size="20"
+                        >
+                            mdi-share-variant
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>Share this video</span>
+            </v-tooltip>
+        </div>
+
+        <share-dialog  
+            v-model:dialog="shareDialog" 
+            :video-url="shareUrl"
+        />
     </div>
-
-    <share-dialog v-model:dialog="shareDialog" :video-url="shareUrl" />
-
-</div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import Screen from '@/components/Screen.vue'
-import ShareDialog from '@/components/ShareDialog.vue'
 import { useCategory } from '@/composables/useCategory'
 import type { VideoItem } from '@/types/video'
 
