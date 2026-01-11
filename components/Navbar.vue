@@ -92,7 +92,6 @@
                         class="mt-6"
                     >{{ category }}</span>
                 </div>
-
             </v-toolbar-title>
             <v-spacer />
             <v-btn
