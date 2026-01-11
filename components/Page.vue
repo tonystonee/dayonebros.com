@@ -15,7 +15,9 @@
                     @random="random"
                 />  
 
-                <p class="seo-date">{{ dateLabel }}</p>
+                <p class="seo-date">
+                    {{ dateLabel }}
+                </p>
                 <p class="seo-copy">
                     Daily YouTube highlight reel with the top 10 viral videos you might have missed today.
                 </p>
@@ -110,6 +112,14 @@ type YouTubeResponse = {
   }>
 }
 
+const isYouTubeResponse = (value: unknown): value is YouTubeResponse => {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+  const items = (value as { items?: unknown }).items
+  return Array.isArray(items)
+}
+
 const { data, error: fetchError } = await useFetch<YouTubeResponse>(() => {
   return props.uri || null
 }, {
@@ -136,7 +146,11 @@ watch([data, fetchError], () => {
     return
   }
 
-  const mapped = data.value.items.map((item) => ({
+  const payload = data.value
+  if (!isYouTubeResponse(payload)) {
+    return
+  }
+  const mapped = payload.items.map((item) => ({
     active: false,
     id: item.id,
     ...item.snippet,
