@@ -3,6 +3,7 @@
         <v-navigation-drawer
             v-if="nav"
             v-model="drawer"
+            color="primary"
             class="nav-drawer"
             width="230"
             temporary
@@ -67,6 +68,7 @@
         <v-app-bar
             density="comfortable"
             elevation="1"
+            color="primary"
             class="top-bar"
         >
             <v-app-bar-nav-icon
@@ -104,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
@@ -141,16 +143,26 @@ const items: NavItem[] = [
 
 const route = useRoute()
 const theme = useTheme()
-const { category } = useCategory()
+const { category, categoryColor } = useCategory()
 
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
 const currentPath = computed(() => route.path)
 const isDark = computed(() => theme.global.current.value.dark)
+const basePrimary = ref(theme.global.current.value.colors.primary)
+
+watch(() => theme.global.name.value, () => {
+  const themeEntry = theme.themes.value?.[theme.global.name.value]
+  basePrimary.value = themeEntry?.colors?.primary ?? basePrimary.value
+}, { immediate: true })
 
 const toggleTheme = () => {
   theme.global.name.value = isDark.value ? 'dayone' : 'dayoneDark'
 }
+
+watchEffect(() => {
+  theme.global.current.value.colors.primary = categoryColor.value ?? basePrimary.value
+})
 </script>
 
 

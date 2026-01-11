@@ -13,6 +13,7 @@
                         rounded="pill"
                         class="random-btn ml-0 px-4"
                         variant="elevated"
+                        color="primary"
                         @click="emit('random')"
                     >
                         <v-icon
@@ -20,7 +21,7 @@
                             size="20">
                             mdi-shuffle-variant
                         </v-icon>
-                        Random Pick
+                        Random
                     </v-btn>
                 </template>
                 <span>

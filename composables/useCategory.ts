@@ -6,15 +6,17 @@ import categories from '@/config/categories'
 export function useCategory () {
   const route = useRoute()
 
-  const slug = computed(() => route.params.category?.toString() ?? '')
+  const slug = computed(() => route.params.category?.toString().toLowerCase() ?? '')
 
-  const category = computed<string | null>(() => {
+  const categoryMatch = computed(() => {
     if (route.path === '/') {
       return null
     }
-    const match = categories.find((item) => slugify(item.name) === slug.value)
-    return match?.name ?? null
+    return categories.find((item) => slugify(item.name, { lower: true }) === slug.value) ?? null
   })
 
-  return { category }
+  const category = computed<string | null>(() => categoryMatch.value?.name ?? null)
+  const categoryColor = computed<string | null>(() => categoryMatch.value?.color ?? null)
+
+  return { category, categoryColor }
 }
