@@ -1,10 +1,6 @@
 <template>
     <section class="seo-hero">
-        <h1 class="seo-title">DayOneBros: Today's Top 10 YouTube Videos</h1>
-        <p class="seo-date">{{ dateLabel }}</p>
-        <p class="seo-copy">
-            Daily YouTube highlight reel with the top 10 viral videos you might have missed today.
-        </p>
+        <h1 class="seo-title text-h6">DayOneBros: Today's Top 10 YouTube Videos</h1>
     </section>
     <Page
         :uri="uri"
@@ -23,11 +19,7 @@ const now = new Date()
 const month = now.toLocaleString('en-US', { month: 'long' })
 const year = now.getFullYear()
 const dateStamp = `${month} ${year}`
-const dateLabel = now.toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric'
-})
+
 
 useHead({
   title: `What to watch on YouTube right now | Top 10 viral videos ${dateStamp} - DayOneBros`,

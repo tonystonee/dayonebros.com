@@ -14,6 +14,11 @@
                     :video="currentVideo"
                     @random="random"
                 />  
+
+                <p class="seo-date">{{ dateLabel }}</p>
+                <p class="seo-copy">
+                    Daily YouTube highlight reel with the top 10 viral videos you might have missed today.
+                </p>
             </v-col>
             <v-col
                 cols="12"
@@ -44,6 +49,13 @@ const props = defineProps<{
   uri: string
   maxResults?: number
 }>()
+
+const now = new Date()
+const dateLabel = now.toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric'
+})
 
 const currentVideo = ref<VideoItem | null>(null)
 const videos = ref<VideoItem[] | null>(null)
