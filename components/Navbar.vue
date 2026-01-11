@@ -26,6 +26,8 @@
                                 class="brand-logo"
                                 :src="logoUrl"
                                 alt="DayOneBros logo"
+                                width="96"
+                                height="96"
                             >
                         </NuxtLink>
                     </v-toolbar-title>
@@ -81,11 +83,14 @@
                         to="/"
                         class="brand-link mt-2"
                     >
-                        <img
-                            class="brand-logo"
-                            :src="logoUrl"
-                            alt="DayOneBros logo"
-                        >
+                    <img
+                        v-if="isMounted"
+                        class="brand-logo"
+                        :src="logoUrl"
+                        alt="DayOneBros logo"
+                        width="60"
+                        height="60"
+                    >
                     </NuxtLink>
                     <span
                         v-if="category"
@@ -108,11 +113,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
-import logoUrl from '@/assets/logo.png'
+import logoUrl from '@/assets/logo-navbar.png'
 
 type NavItem = {
   icon: string
@@ -125,6 +130,7 @@ defineOptions({ name: 'AppNavbar' })
 defineProps<{ source?: string }>()
 
 const drawer = ref<boolean | null>(null)
+const isMounted = ref(false)
 const items: NavItem[] = [
   { icon: 'mdi-car', text: 'Autos & Vehicles', slug: '/autos-and-vehicles' },
   { icon: 'mdi-emoticon-happy-outline', text: 'Comedy', slug: '/comedy' },
@@ -166,6 +172,10 @@ const toggleTheme = () => {
 watchEffect(() => {
   theme.global.current.value.colors.primary = categoryColor.value ?? basePrimary.value
 })
+
+onMounted(() => {
+  isMounted.value = true
+})
 </script>
 
 
@@ -189,8 +199,8 @@ watchEffect(() => {
         }
     }
     .brand-logo{
-        width: 40px;
-        height: 40px;
+        width: 90%;
+        height: 90px;
     }
 }
 .brand-link{
@@ -203,7 +213,8 @@ watchEffect(() => {
     text-decoration: none;
 }
 .brand-logo{
-    width: 96px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     border-radius: 10px;
 }
