@@ -1,6 +1,8 @@
 <template>
     <section class="seo-hero">
-        <h1 class="seo-title text-h6">DayOneBros: Today's Top 10 YouTube Videos</h1>
+        <h1 class="seo-title text-h6">
+            DayOneBros: Today's Top 10 YouTube Videos
+        </h1>
     </section>
     <Page
         :uri="uri"
