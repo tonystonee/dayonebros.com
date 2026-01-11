@@ -39,7 +39,7 @@
                                             <img
                                                 class="top-ten-thumb"
                                                 :src="item.thumbnails.medium.url"
-                                                alt=""
+                                                :alt="item.title"
                                             >
                                         </template>
                                         <v-list-item-title class="top-ten-title text-body-2">
