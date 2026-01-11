@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="player">
-            <screen :video="video" />
+            <Screen :video="video" />
         </div>
 
         <div class="player-actions d-flex align-center flex-wrap mt-3">

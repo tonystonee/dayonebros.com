@@ -16,11 +16,12 @@ const route = useRoute()
 const config = useRuntimeConfig()
 const maxResults = ref(50)
 
-const slug = computed(() => String(route.params.category || ''))
+const slug = computed(() => String(route.params.category || '').toLowerCase())
 
 const category = computed(() =>
-  categories.find((item) => slugify(item.name) === slug.value)
+  categories.find((item) => slugify(item.name, { lower: true }) === slug.value)
 )
+console.log(categories);
 
 // ✅ 404 in a way Nuxt supports (safe during SSR + route changes)
 watchEffect(() => {
@@ -43,7 +44,16 @@ const uri = computed(() => {
   const c = category.value
   if (!c) return ''
 
-  // ✅ YouTube API uses `order=viewCount` (not orderBy)
-  return `${config.public.youtubeEndpoint}?part=snippet&maxResults=${maxResults.value}&order=viewCount&regionCode=us&relevanceLanguage=en&type=video&videoCategoryId=${c.categoryId}&key=${config.public.youtubeApiKey}`
+  // Use search.list with a category query and order by view count
+  const url = new URL('https://www.googleapis.com/youtube/v3/search')
+  url.searchParams.set('part', 'snippet')
+  url.searchParams.set('order', 'viewCount')
+  url.searchParams.set('type', 'video')
+  url.searchParams.set('videoCategoryId', String(c.categoryId))
+  url.searchParams.set('regionCode', 'us')
+  url.searchParams.set('maxResults', String(maxResults.value))
+  url.searchParams.set('q', c.name)
+  url.searchParams.set('key', config.public.youtubeApiKey)
+  return url.toString()
 })
 </script>

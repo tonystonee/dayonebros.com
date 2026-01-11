@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <error-dialog
+        <ErrorDialog
             v-model:dialog="dialog"
             :error="error"
         />
@@ -10,7 +10,7 @@
                 md="8"
                 :class="{'pr-4': mdAndUp}"
             >
-                <player
+                <Player
                     :video="currentVideo"
                     @random="random"
                 />  
@@ -19,7 +19,7 @@
                 cols="12"
                 md="4"
             >
-                <top-ten-bar
+                <TopTenBar
                     :active-video="activeVideo"
                     :video-list="topTen"
                     @select-video="changeVideo"
@@ -107,9 +107,9 @@ watch([data, fetchError], () => {
         ? (errorValue as { message: string }).message
         : 'Unknown error'
     error.value = message
+    console.error(errorValue, message)
     return
   }
-
   if (!data.value) {
     return
   }

@@ -108,16 +108,21 @@ defineProps<{ source?: string }>()
 
 const drawer = ref<boolean | null>(null)
 const items: NavItem[] = [
-  { icon: 'mdi-newspaper-variant-outline', text: 'News', slug: '/news' },
+  { icon: 'mdi-car', text: 'Autos & Vehicles', slug: '/autos-and-vehicles' },
   { icon: 'mdi-emoticon-happy-outline', text: 'Comedy', slug: '/comedy' },
-  { icon: 'mdi-football', text: 'Sports', slug: '/sports' },
-  { icon: 'mdi-car', text: 'Auto', slug: '/auto' },
-  { icon: 'mdi-music', text: 'Music', slug: '/music' },
-  { icon: 'mdi-movie-open-outline', text: 'Film and Animation', slug: '/film-and-animation' },
-  { icon: 'mdi-gamepad-variant-outline', text: 'Gaming', slug: '/gaming' },
-  { icon: 'mdi-paw', text: 'Pets', slug: '/pets' },
-  { icon: 'mdi-flask-outline', text: 'Science', slug: '/science' },
   { icon: 'mdi-school-outline', text: 'Education', slug: '/education' },
+  { icon: 'mdi-movie-open-outline', text: 'Film & Animation', slug: '/film-and-animation' },
+  { icon: 'mdi-gamepad-variant-outline', text: 'Gaming', slug: '/gaming' },
+  { icon: 'mdi-music', text: 'Music', slug: '/music' },
+  { icon: 'mdi-newspaper-variant-outline', text: 'News & Politics', slug: '/news-and-politics' },
+  { icon: 'mdi-paw', text: 'Pets & Animals', slug: '/pets-and-animals' },
+  { icon: 'mdi-football', text: 'Sports', slug: '/sports' },
+  { icon: 'mdi-flask-outline', text: 'Science & Technology', slug: '/science-and-technology' },
+  { icon: 'mdi-account-group', text: 'People & Blogs', slug: '/people-and-blogs' },
+  { icon: 'mdi-star-outline', text: 'Entertainment', slug: '/entertainment' },
+  { icon: 'mdi-brush', text: 'Howto & Style', slug: '/howto-and-style' },
+  { icon: 'mdi-airplane', text: 'Travel & Events', slug: '/travel-and-events' },
+  { icon: 'mdi-hand-heart-outline', text: 'Nonprofits & Activism', slug: '/nonprofits-and-activism' },
 ]
 
 const route = useRoute()

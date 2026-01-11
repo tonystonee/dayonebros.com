@@ -16,7 +16,7 @@ export type CategoryConfig = {
 
 const categories: CategoryConfig[] = [
   {
-    name: 'Auto',
+    name: 'Autos & Vehicles',
     categoryId: 2,
     color: colors.red,
   },
@@ -31,7 +31,7 @@ const categories: CategoryConfig[] = [
     color: colors.yellow,
   },
   {
-    name: 'Film and Animation',
+    name: 'Film & Animation',
     categoryId: 1,
     color: colors.pink,
   },
@@ -46,12 +46,12 @@ const categories: CategoryConfig[] = [
     color: colors.blue,
   },
   {
-    name: 'News',
+    name: 'News & Politics',
     categoryId: 25,
     color: colors.lightBlue,
   },
   {
-    name: 'Pets',
+    name: 'Pets & Animals',
     categoryId: 15,
     color: colors.lightGreen,
   },
@@ -61,8 +61,33 @@ const categories: CategoryConfig[] = [
     color: colors.green,
   },
   {
-    name: 'Science',
+    name: 'Science & Technology',
     categoryId: 28,
+    color: colors.green,
+  },
+  {
+    name: 'People & Blogs',
+    categoryId: 22,
+    color: colors.blue,
+  },
+  {
+    name: 'Entertainment',
+    categoryId: 24,
+    color: colors.pink,
+  },
+  {
+    name: 'Howto & Style',
+    categoryId: 26,
+    color: colors.yellow,
+  },
+  {
+    name: 'Travel & Events',
+    categoryId: 19,
+    color: colors.lightBlue,
+  },
+  {
+    name: 'Nonprofits & Activism',
+    categoryId: 29,
     color: colors.green,
   },
 ]
