@@ -11,26 +11,40 @@
                 density="compact"
                 class="py-0"
             >
-                <v-toolbar class="title-tile">
-                    <v-app-bar-nav-icon
-                        class="mx-1"
-                        @click.stop="drawer = !drawer"
-                    />
-                    <v-toolbar-title class="title ml-1 mr-5 align-center">
-                        <NuxtLink
-                            to="/"
-                            class="brand-link"
+                <div class="d-flex align-top">
+                <v-app-bar-nav-icon
+                    class="mx-1"
+                    @click.stop="drawer = !drawer"
+                />
+                <v-toolbar-title class="title ml-1 mr-5 align-center">
+                    <NuxtLink
+                        to="/"
+                        class="brand-link"
+                    >
+                        <img
+                            class="brand-logo"
+                            :src="logoUrl"
+                            alt="DayOneBros logo"
                         >
-                            <img
-                                class="brand-logo"
-                                :src="logoUrl"
-                                alt="DayOneBros logo"
-                            >
-                        </NuxtLink>
-                    </v-toolbar-title>
-                    <v-divider />
-                </v-toolbar>
+                    </NuxtLink>
+                </v-toolbar-title>
+                </div>
                 <v-divider />
+                <v-divider />
+                <v-list-item
+                    to="/"
+                    class="nav-item"
+                    rounded="lg"
+                    :active="currentPath === '/'"
+                    :class="{ 'nav-item--active': currentPath === '/' }"
+                >
+                    <template #prepend>
+                        <v-icon size="20">
+                            mdi-home
+                        </v-icon>
+                    </template>
+                    <v-list-item-title>Home</v-list-item-title>
+                </v-list-item>
                 <v-list-item
                     v-for="item in items"
                     :key="item.text"
@@ -62,7 +76,7 @@
             <v-toolbar-title class="title ml-2 mr-5 align-center">
                 <NuxtLink
                     to="/"
-                    class="brand-link"
+                    class="brand-link mt-2"
                 >
                     <img
                         class="brand-logo"
@@ -150,7 +164,7 @@ const toggleTheme = () => {
     border-right: 1px solid rgba(var(--v-theme-on-surface), 0.08);
 
     .title-tile{
-        height: 56px;
+        height: 64px;
         .v-toolbar__content{
             padding: 0 8px;
             align-items: center;
@@ -158,6 +172,10 @@ const toggleTheme = () => {
                 font-size: 16px !important;
             }
         }
+    }
+    .brand-logo{
+        width: 40px;
+        height: 40px;
     }
 }
 .brand-link{
@@ -171,7 +189,6 @@ const toggleTheme = () => {
 }
 .brand-logo{
     width: 96px;
-    height: 96px;
     object-fit: contain;
     border-radius: 10px;
 }
