@@ -3,7 +3,7 @@
         <v-navigation-drawer
             v-if="nav"
             v-model="drawer"
-            color="primary"
+            :color="navColor"
             class="nav-drawer"
             width="230"
             temporary
@@ -68,7 +68,7 @@
         <v-app-bar
             density="comfortable"
             elevation="1"
-            color="primary"
+            :color="navColor"
             class="top-bar"
         >
             <v-app-bar-nav-icon
@@ -148,6 +148,7 @@ const { category, categoryColor } = useCategory()
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
 const currentPath = computed(() => route.path)
+const navColor = computed(() => (route.path === '/' ? undefined : 'primary'))
 const isDark = computed(() => theme.global.current.value.dark)
 const basePrimary = ref(theme.global.current.value.colors.primary)
 
