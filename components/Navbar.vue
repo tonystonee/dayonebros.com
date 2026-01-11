@@ -132,7 +132,7 @@ defineOptions({ name: 'AppNavbar' })
 
 defineProps<{ source?: string }>()
 
-const drawer = ref<boolean | null>(null)
+const drawer = ref(false)
 const isMounted = ref(false)
 const items: NavItem[] = [
   { icon: 'mdi-car', text: 'Autos & Vehicles', slug: '/autos-and-vehicles' },
