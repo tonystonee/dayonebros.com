@@ -14,7 +14,7 @@ defineOptions({ name: 'CategoryPage' })
 
 const route = useRoute()
 const config = useRuntimeConfig()
-const maxResults = ref(50)
+const maxResults = ref(10)
 
 const slug = computed(() => String(route.params.category || '').toLowerCase())
 
