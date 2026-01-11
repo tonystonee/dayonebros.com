@@ -32,9 +32,9 @@
                     size="large"
                     class="share-btn ml-2"
                     icon
-                    variant="elevated"
+                    elevation="0"
                 >
-                    <v-icon size="20">mdi-share-variant</v-icon>
+                    <v-icon color="primary" size="20">mdi-share-variant</v-icon>
                 </v-btn>
             </template>
             <span>Share this video</span>
