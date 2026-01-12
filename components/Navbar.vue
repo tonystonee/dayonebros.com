@@ -129,11 +129,13 @@ type NavItem = {
 }
 
 defineOptions({ name: 'AppNavbar' })
-
 defineProps<{ source?: string }>()
+
+const THEME_KEY = 'theme'
 
 const drawer = ref(false)
 const isMounted = ref(false)
+
 const items: NavItem[] = [
   { icon: 'mdi-car', text: 'Autos & Vehicles', slug: '/autos-and-vehicles' },
   { icon: 'mdi-emoticon-happy-outline', text: 'Comedy', slug: '/comedy' },
@@ -161,38 +163,58 @@ const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
 const currentPath = computed(() => route.path)
 const navColor = computed(() => (route.path === '/' ? undefined : 'primary'))
+
+// Vuetify theme state
 const isDark = computed(() => theme.global.current.value.dark)
 const basePrimary = ref(theme.global.current.value.colors.primary)
+
 const compactCategory = computed(() => {
-  if (!category.value) {
-    return ''
-  }
-  if (smAndUp.value) {
-    return category.value
-  }
-  return category.value.length > 12
-    ? `${category.value.slice(0, 12)}…`
-    : category.value
+  if (!category.value) return ''
+  if (smAndUp.value) return category.value
+  return category.value.length > 12 ? `${category.value.slice(0, 12)}…` : category.value
 })
 
-watch(() => theme.global.name.value, () => {
-  const themeEntry = theme.themes.value?.[theme.global.name.value]
-  basePrimary.value = themeEntry?.colors?.primary ?? basePrimary.value
-}, { immediate: true })
+// Keep basePrimary aligned with the selected theme’s primary
+watch(
+  () => theme.global.name.value,
+  (name) => {
+    const themeEntry = theme.themes.value?.[name]
+    basePrimary.value = themeEntry?.colors?.primary ?? basePrimary.value
+  },
+  { immediate: true }
+)
+
+// Persist theme choice whenever it changes
+watch(
+  () => theme.global.name.value,
+  (name) => {
+    // only persist after mount to avoid SSR / pre-mount weirdness
+    if (!isMounted.value) return
+    localStorage.setItem(THEME_KEY, name)
+  }
+)
 
 const toggleTheme = () => {
   theme.global.name.value = isDark.value ? 'dayone' : 'dayoneDark'
 }
 
+// Your existing “category color overrides primary” logic
 watchEffect(() => {
   theme.global.current.value.colors.primary = categoryColor.value ?? basePrimary.value
 })
 
 onMounted(() => {
+  // Load saved theme once we're on the client
+  const saved = localStorage.getItem(THEME_KEY)
+
+  // validate the saved theme exists in Vuetify theme registry
+  if (saved && theme.themes.value && saved in theme.themes.value) {
+    theme.global.name.value = saved
+  }
+
   isMounted.value = true
 })
 </script>
-
 
 <style lang="scss">
 .title{
