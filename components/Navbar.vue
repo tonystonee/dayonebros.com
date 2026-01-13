@@ -2,15 +2,15 @@
     <div>
         <v-navigation-drawer
             v-if="nav"
-            :model-value="smAndUp ? true : drawer"
+            v-model="drawer"
             :color="navColor"
             class="nav-drawer d-flex flex-column justify-center"
             :temporary="!smAndUp"
+            :permanent="smAndUp"
             :rail="smAndUp"
             expand-on-hover
             width="240"
             rail-width="72"
-            @update:model-value="drawer = $event"
         >
             <v-list
                 density="compact"
@@ -55,6 +55,10 @@
             :color="navColor"
             class="top-bar"
         >
+            <v-app-bar-nav-icon
+                v-if="nav && !smAndUp"
+                @click.stop="drawer = !drawer"
+            />
             <v-toolbar-title class="title ml-2 mr-5 align-center">
                 <div class="d-flex ">
                     <NuxtLink
