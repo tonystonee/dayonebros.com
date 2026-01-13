@@ -2,37 +2,20 @@
     <div>
         <v-navigation-drawer
             v-if="nav"
-            v-model="drawer"
+            :model-value="smAndUp ? true : drawer"
             :color="navColor"
-            class="nav-drawer"
-            width="230"
-            temporary
+            class="nav-drawer d-flex flex-column justify-center"
+            :temporary="!smAndUp"
+            :rail="smAndUp"
+            expand-on-hover
+            width="240"
+            rail-width="72"
+            @update:model-value="drawer = $event"
         >
             <v-list
                 density="compact"
-                class="py-0"
+                class="py-0 h-100 d-flex flex-column justify-center"
             >
-                <div class="d-flex align-top">
-                    <v-app-bar-nav-icon
-                        class="mx-1"
-                        @click.stop="drawer = !drawer"
-                    />
-                    <v-toolbar-title class="title ml-1 mr-5 align-center">
-                        <NuxtLink
-                            to="/"
-                            class="brand-link"
-                        >
-                            <img
-                                class="brand-logo"
-                                :src="logoUrl"
-                                alt="DayOneBros logo"
-                                width="96"
-                                height="96"
-                            >
-                        </NuxtLink>
-                    </v-toolbar-title>
-                </div>
-                <v-divider />
                 <v-list-item
                     to="/"
                     class="nav-item"
@@ -72,10 +55,6 @@
             :color="navColor"
             class="top-bar"
         >
-            <v-app-bar-nav-icon
-                v-if="nav"
-                @click.stop="drawer = !drawer"
-            />
             <v-toolbar-title class="title ml-2 mr-5 align-center">
                 <div class="d-flex ">
                     <NuxtLink
