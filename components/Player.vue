@@ -11,7 +11,7 @@
                         v-bind="props"
                         size="large"
                         rounded="pill"
-                        class="random-btn ml-0 px-4 mt-2text-uppercase"
+                        class="random-btn ml-0 px-4 mt-2 text-uppercase"
                         variant="elevated"
                         color="secondary"
                         elevation="4"
