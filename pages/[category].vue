@@ -1,6 +1,6 @@
 <template>
-    <section class="seo-hero mx-3 ">
-        <h1 class="seo-title">
+    <section class="seo-hero mx-3">
+        <h1 class="seo-title text-h5 font-weight-bold mb-2">
             DayOneBros: Today's Top 10 {{ category?.name ?? 'Category' }} Videos
         </h1>
     </section>
@@ -84,20 +84,3 @@ const uri = computed(() => {
   return url.toString()
 })
 </script>
-
-<style scoped lang="scss">
-.seo-hero{
-    margin: 12px 0 16px;
-    padding: 16px 18px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(var(--v-theme-surface), 0.95), rgba(var(--v-theme-surface), 0.7));
-    border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-    box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.08);
-}
-.seo-title{
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-    margin: 0 0 8px;
-}
-</style>

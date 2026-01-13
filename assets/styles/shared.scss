@@ -1,0 +1,36 @@
+a{
+  text-decoration: none;
+}
+
+.seo-hero{
+  margin: 12px 0 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(var(--v-theme-surface), 0.95), rgba(var(--v-theme-surface), 0.7));
+  border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
+  box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.08);
+}
+
+.seo-title{
+  letter-spacing: 0.2px;
+}
+
+.seo-date{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(var(--v-theme-on-surface), 0.7);
+  margin: 0 0 10px;
+}
+
+.seo-date::before{
+  content: '';
+  width: 12px;
+  height: 2px;
+  background: rgba(var(--v-theme-primary), 0.85);
+  border-radius: 999px;
+}

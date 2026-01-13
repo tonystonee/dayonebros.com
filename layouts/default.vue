@@ -16,9 +16,6 @@ defineOptions({ name: 'DefaultLayout' })
 </script>
 
 <style>
-a{
-    text-decoration: none;
-}
 .main-wrapper{
   background: rgb(var(--v-theme-background));
 }
