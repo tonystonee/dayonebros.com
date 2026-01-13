@@ -7,7 +7,7 @@
             class="nav-drawer d-flex flex-column justify-center"
             :temporary="!smAndUp"
             :permanent="smAndUp"
-            :rail="smAndUp"
+            :rail="smAndUp && rail"
             expand-on-hover
             width="240"
             rail-width="72"
@@ -16,6 +16,33 @@
                 density="compact"
                 class="py-0 h-100 d-flex flex-column justify-center"
             >
+                <v-list-item
+                    v-if="smAndUp"
+                    class="my-1 mx-2"
+                >
+                    <v-tooltip
+                        text="Toggle menu"
+                        location="right"
+                    >
+                        <template #activator="{ props }">
+                            <v-btn
+                                v-bind="props"
+                                icon
+                                variant="text"
+                                class="ml-n2 mt-8"
+                                :aria-label="rail ? 'Expand navigation' : 'Collapse navigation'"
+                                @click="rail = !rail"
+                            >
+                                <v-img
+                                    :src="hamburgerUrl"
+                                    width="36"
+                                    height="36"
+                                    alt=""
+                                />
+                            </v-btn>
+                        </template>
+                    </v-tooltip>
+                </v-list-item>
                 <v-list-item
                     to="/"
                     class="my-1 mx-2"
@@ -55,10 +82,28 @@
             :color="navColor"
             class="top-bar"
         >
-            <v-app-bar-nav-icon
+            <v-tooltip
                 v-if="nav && !smAndUp"
-                @click.stop="drawer = !drawer"
-            />
+                text="Toggle menu"
+                location="bottom"
+            >
+                <template #activator="{ props }">
+                    <v-btn
+                        v-bind="props"
+                        icon
+                        variant="text"
+                        :aria-label="drawer ? 'Close navigation' : 'Open navigation'"
+                        @click.stop="drawer = !drawer"
+                    >
+                        <v-img
+                            :src="hamburgerUrl"
+                            width="36"
+                            height="36"
+                            alt=""
+                        />
+                    </v-btn>
+                </template>
+            </v-tooltip>
             <v-toolbar-title class="ml-2 mr-5 align-center">
                 <div class="d-flex align-center">
                     <NuxtLink
@@ -104,6 +149,7 @@ import { useRoute } from 'vue-router'
 import { useDisplay, useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
 import logoUrl from '@/assets/logo-navbar.png'
+import hamburgerUrl from '@/assets/hamburger.png'
 
 type NavItem = {
   icon: string
@@ -115,6 +161,7 @@ defineOptions({ name: 'AppNavbar' })
 defineProps<{ source?: string }>()
 
 const drawer = ref(false)
+const rail = ref(true)
 const isMounted = ref(false)
 
 const items: NavItem[] = [
