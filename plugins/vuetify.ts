@@ -1,14 +1,18 @@
+import { watch } from 'vue'
+import { useCookie } from '#app'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const themeCookie = useCookie<string>('theme', { default: () => 'dayone' })
+  const defaultTheme = themeCookie.value === 'dayoneDark' ? 'dayoneDark' : 'dayone'
   const vuetify = createVuetify({
     ssr: true,
     components,
     directives,
     theme: {
-      defaultTheme: 'dayone',
+      defaultTheme,
       themes: {
         dayone: {
           dark: false,
@@ -41,6 +45,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     }
   })
+
+  watch(
+    () => vuetify.theme.global.name.value,
+    (name) => {
+      themeCookie.value = name
+    },
+    { immediate: true }
+  )
 
   nuxtApp.vueApp.use(vuetify)
 })

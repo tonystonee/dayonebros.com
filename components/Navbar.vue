@@ -116,7 +116,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDisplay, useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
@@ -130,8 +130,6 @@ type NavItem = {
 
 defineOptions({ name: 'AppNavbar' })
 defineProps<{ source?: string }>()
-
-const THEME_KEY = 'theme'
 
 const drawer = ref(false)
 const isMounted = ref(false)
@@ -162,11 +160,15 @@ const { category, categoryColor } = useCategory()
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
 const currentPath = computed(() => route.path)
-const navColor = computed(() => (route.path === '/' ? undefined : 'primary'))
+const navColor = computed(() => {
+  if (categoryColor.value) {
+    return categoryColor.value
+  }
+  return route.path === '/' ? undefined : 'primary'
+})
 
 // Vuetify theme state
 const isDark = computed(() => theme.global.current.value.dark)
-const basePrimary = ref<Record<string, string>>({})
 
 const compactCategory = computed(() => {
   if (!category.value) return ''
@@ -174,51 +176,12 @@ const compactCategory = computed(() => {
   return category.value.length > 12 ? `${category.value.slice(0, 12)}…` : category.value
 })
 
-// Keep basePrimary aligned with the selected theme’s primary
-watch(
-  () => theme.global.name.value,
-  (name) => {
-    const themeEntry = theme.themes.value?.[name]
-    if (!themeEntry?.colors?.primary) return
-    if (!basePrimary.value[name]) {
-      basePrimary.value[name] = themeEntry.colors.primary
-    }
-  },
-  { immediate: true }
-)
-
 // Persist theme choice whenever it changes
-watch(
-  () => theme.global.name.value,
-  (name) => {
-    // only persist after mount to avoid SSR / pre-mount weirdness
-    if (!isMounted.value) return
-    localStorage.setItem(THEME_KEY, name)
-  }
-)
-
 const toggleTheme = () => {
   theme.global.name.value = isDark.value ? 'dayone' : 'dayoneDark'
 }
 
-// Your existing “category color overrides primary” logic
-watchEffect(() => {
-  const name = theme.global.name.value
-  const themeEntry = theme.themes.value?.[name]
-  if (!themeEntry?.colors) return
-  const fallback = basePrimary.value[name] ?? themeEntry.colors.primary
-  themeEntry.colors.primary = categoryColor.value ?? fallback
-})
-
 onMounted(() => {
-  // Load saved theme once we're on the client
-  const saved = localStorage.getItem(THEME_KEY)
-
-  // validate the saved theme exists in Vuetify theme registry
-  if (saved && theme.themes.value && saved in theme.themes.value) {
-    theme.global.name.value = saved
-  }
-
   isMounted.value = true
 })
 </script>
