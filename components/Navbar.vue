@@ -166,7 +166,7 @@ const navColor = computed(() => (route.path === '/' ? undefined : 'primary'))
 
 // Vuetify theme state
 const isDark = computed(() => theme.global.current.value.dark)
-const basePrimary = ref(theme.global.current.value.colors.primary)
+const basePrimary = ref<Record<string, string>>({})
 
 const compactCategory = computed(() => {
   if (!category.value) return ''
@@ -179,7 +179,10 @@ watch(
   () => theme.global.name.value,
   (name) => {
     const themeEntry = theme.themes.value?.[name]
-    basePrimary.value = themeEntry?.colors?.primary ?? basePrimary.value
+    if (!themeEntry?.colors?.primary) return
+    if (!basePrimary.value[name]) {
+      basePrimary.value[name] = themeEntry.colors.primary
+    }
   },
   { immediate: true }
 )
@@ -200,7 +203,11 @@ const toggleTheme = () => {
 
 // Your existing “category color overrides primary” logic
 watchEffect(() => {
-  theme.global.current.value.colors.primary = categoryColor.value ?? basePrimary.value
+  const name = theme.global.name.value
+  const themeEntry = theme.themes.value?.[name]
+  if (!themeEntry?.colors) return
+  const fallback = basePrimary.value[name] ?? themeEntry.colors.primary
+  themeEntry.colors.primary = categoryColor.value ?? fallback
 })
 
 onMounted(() => {
