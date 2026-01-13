@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useFetch } from '#imports'
+import { useAsyncData } from '#imports'
 import { useDisplay, useGoTo } from 'vuetify'
 import ErrorDialog from '@/components/ErrorDialog.vue'
 import Player from '@/components/Player.vue'
@@ -123,8 +123,11 @@ const isYouTubeResponse = (value: unknown): value is YouTubeResponse => {
   return Array.isArray(items)
 }
 
-const { data, error: fetchError } = await useFetch<YouTubeResponse>(() => {
-  return props.uri || null
+const { data, error: fetchError } = await useAsyncData<YouTubeResponse | null>(() => {
+  if (!props.uri) {
+    return null
+  }
+  return $fetch<YouTubeResponse>(props.uri)
 }, {
   watch: [() => props.uri]
 })
