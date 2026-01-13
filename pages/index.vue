@@ -1,9 +1,5 @@
 <template>
-    <section class="seo-hero mx-3">
-        <h1 class="seo-title text-h4 font-weight-bold mb-2">
-            DayOneBros: Today's Top 10 YouTube Videos
-        </h1>
-    </section>
+    <SeoHeader title="DayOneBros: Today's Top 10 YouTube Videos" />
     <Page
         :uri="uri"
         :max-results="maxResults"
@@ -14,6 +10,7 @@
 import { computed, ref } from 'vue'
 import { useHead, useRuntimeConfig } from '#imports'
 import Page from '@/components/Page.vue'
+import SeoHeader from '@/components/SeoHeader.vue'
 
 defineOptions({ name: 'HomePage' })
 

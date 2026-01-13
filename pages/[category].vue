@@ -1,9 +1,5 @@
 <template>
-    <section class="seo-hero mx-3">
-        <h1 class="seo-title text-h5 font-weight-bold mb-2">
-            DayOneBros: Today's Top 10 {{ category?.name ?? 'Category' }} Videos
-        </h1>
-    </section>
+    <SeoHeader :title="headerTitle" />
     <Page
         :uri="uri"
         :summary="summaryText"
@@ -16,6 +12,7 @@ import { useRoute } from 'vue-router'
 import { createError, showError, useHead, useRuntimeConfig } from '#imports'
 import slugify from 'slugify'
 import Page from '@/components/Page.vue'
+import SeoHeader from '@/components/SeoHeader.vue'
 import categories from '@/config/categories'
 
 defineOptions({ name: 'CategoryPage' })
@@ -33,6 +30,11 @@ const category = computed(() =>
 const summaryText = computed(() => {
   const categoryName = category.value?.name ?? 'category'
   return `Daily ${categoryName.toLowerCase()} highlights with the best new videos right now.`
+})
+
+const headerTitle = computed(() => {
+  const categoryName = category.value?.name ?? 'Category'
+  return `DayOneBros: Today's Top 10 ${categoryName} Videos`
 })
 
 // ✅ 404 in a way Nuxt supports (safe during SSR + route changes)
