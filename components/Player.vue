@@ -4,7 +4,7 @@
             <Screen :video="video" />
         </div>
 
-        <div class="player-actions d-flex align-center flex-wrap mt-3">
+        <div class="player-actions d-flex align-center flex-wrap mt-0">
             <v-tooltip location="top">
                 <template #activator="{ props }">
                     <v-btn
@@ -109,6 +109,8 @@ onMounted(() => {
         box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.2);
     }
     .player {
+        background: #000;
+        padding-bottom: 12px;
         .player-progress{
             border-bottom-left-radius:2px;
             border-bottom-right-radius:2px;
