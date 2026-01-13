@@ -2,17 +2,19 @@
     <div>
         <v-responsive :aspect-ratio="16/9">
             <v-sheet
-                class="screen pa-0 ma-0"
+                class="pa-0 ma-0 w-100 h-100 rounded-t-lg bg-surface"
             >
                 <v-scale-transition origin="center, center">
                     <div
                         v-if="video && url"
                         :style="styleObject"
+                        class="w-100 h-100"
                     >
                         <iframe
                             :src="url"
                             frameborder="0"
                             allowfullscreen=""
+                            class="w-100 h-100 rounded-t-lg"
                         />
                     </div>
                 </v-scale-transition>
@@ -61,24 +63,3 @@ const url = computed(() => {
   return `https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&autoplay=1&mute=1`
 })
 </script>
-
-<style lang="scss">
-
-.screen{
-    border: 0px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-color: rgb(var(--v-theme-surface));
-    height: 100%;
-    width: 100%;
-    div{
-        height:100%;
-    }
-    iframe{
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        height: 100%;
-        width: 100%;
-    }
-}
-</style>

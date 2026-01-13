@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="player">
+        <div class="player pb-3">
             <Screen :video="video" />
         </div>
 
@@ -11,9 +11,10 @@
                         v-bind="props"
                         size="large"
                         rounded="pill"
-                        class="random-btn ml-0 px-4"
+                        class="random-btn ml-0 px-4 text-uppercase"
                         variant="elevated"
                         color="primary"
+                        elevation="4"
                         @click="emit('random')"
                     >
                         <v-icon
@@ -40,9 +41,9 @@
                     <v-btn
                         v-bind="props"
                         size="large"
-                        class="share-btn ml-2"
+                        class="ml-2"
                         icon
-                        elevation="0"
+                        elevation="4"
                         @click="shareDialog = true"
                     >
                         <v-icon 
@@ -102,15 +103,9 @@ onMounted(() => {
 <style lang="scss">
     .random-btn{
         letter-spacing: 1.5px;
-        text-transform: uppercase;
-        box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.2);
-    }
-    .share-btn{
-        box-shadow: 0 10px 24px rgba(var(--v-theme-on-surface), 0.2);
     }
     .player {
         background: #000;
-        padding-bottom: 12px;
         .player-progress{
             border-bottom-left-radius:2px;
             border-bottom-right-radius:2px;

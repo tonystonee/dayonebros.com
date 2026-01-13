@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <Navbar />
-        <v-main class="main-wrapper">
+        <v-main class="bg-background">
             <slot />
         </v-main>
         <AppFooter />
@@ -14,9 +14,3 @@ import Navbar from '@/components/Navbar.vue'
 
 defineOptions({ name: 'DefaultLayout' })
 </script>
-
-<style>
-.main-wrapper{
-  background: rgb(var(--v-theme-background));
-}
-</style>

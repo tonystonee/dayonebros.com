@@ -29,23 +29,26 @@
                                 <div v-bind="props">
                                     <v-list-item
                                         :key="item.title"
-                                        class="top-ten-item"
+                                        class="top-ten-item my-1 mx-2 pa-3 rounded-lg cursor-pointer"
                                         :class="{
                                             'top-ten-item--active': item.active,
                                         }"
                                         @click="selectVideo(item, index)"
                                     >
                                         <template #prepend>
-                                            <img
-                                                class="top-ten-thumb"
+                                            <v-img
                                                 :src="item.thumbnails.medium.url"
                                                 :alt="item.title"
-                                            >
+                                                width="88"
+                                                height="56"
+                                                class="rounded-lg mr-3 elevation-3"
+                                                cover
+                                            />
                                         </template>
-                                        <v-list-item-title class="top-ten-title text-body-2">
+                                        <v-list-item-title class="top-ten-title text-body-2 font-weight-medium">
                                             {{ item.title }}
                                         </v-list-item-title>
-                                        <v-list-item-subtitle class="top-ten-subtitle text-caption">
+                                        <v-list-item-subtitle class="text-caption text-medium-emphasis">
                                             {{ item.channelTitle }}
                                         </v-list-item-subtitle>
                                     </v-list-item>
@@ -97,15 +100,7 @@ const selectVideo = (item: VideoItem, index: number) => {
 }
 </script>
  <style lang="scss">
-    .top-ten{
-        background: rgb(var(--v-theme-surface));
-    }
     .top-ten-item{
-        align-items: flex-start;
-        height: auto;
-        margin: 6px 8px;
-        padding: 10px 12px;
-        border-radius: 12px;
         transition: background 120ms ease, box-shadow 120ms ease, transform 120ms ease;
     }
     .top-ten-item:hover{
@@ -117,27 +112,12 @@ const selectVideo = (item: VideoItem, index: number) => {
         box-shadow: 0 10px 26px rgba(var(--v-theme-on-surface), 0.22);
         border-color: rgba(var(--v-theme-on-surface), 0.18);
     }
-    .top-ten-thumb{
-        width: 88px;
-        height: 56px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-right: 10px;
-        box-shadow: 0 4px 10px rgba(var(--v-theme-on-surface), 0.18);
-    }
     .top-ten-title{
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        font-weight: 600;
         letter-spacing: 0.2px;
-    }
-    .top-ten-subtitle{
-        opacity: 0.7;
-    }
-    [role="listitem"]{
-        cursor: pointer;
     }
  </style>
  

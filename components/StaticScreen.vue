@@ -1,5 +1,5 @@
 <template>
-    <canvas id="tv" />
+    <canvas id="tv" class="pa-0 ma-0" />
 </template>
 
 <script setup lang="ts">
@@ -121,8 +121,6 @@ onBeforeUnmount(() => {
 <style lang="scss">
     .screen{
         canvas{
-            padding: 0;
-            margin: 0;
             width: 100%;
             height: 100%;
             position: absolute;

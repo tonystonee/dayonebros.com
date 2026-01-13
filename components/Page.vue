@@ -185,11 +185,3 @@ const changeVideo = (video: VideoItem, index: number) => {
   toTop()
 }
 </script>
-
-<style lang="scss">
-    .v-dialog{
-        code{
-            width: 100%;
-        }
-    }
-</style>

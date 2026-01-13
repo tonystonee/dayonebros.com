@@ -1,7 +1,7 @@
 <template>
-    <div class="videoDetails">
+    <div class="mt-3">
         <v-slide-y-transition>
-            <h2 class="details-title">
+            <h2 class="details-title text-subtitle-1 font-weight-bold ma-0">
                 {{ video.title }}
             </h2>
         </v-slide-y-transition>
@@ -27,14 +27,8 @@ defineProps<{
 </script>
 
 <style lang="scss">
-    .videoDetails{
-        margin-top: 12px;
-    }
     .details-title{
-        font-size: 18px;
-        font-weight: 700;
         letter-spacing: 0.2px;
-        margin: 0;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;

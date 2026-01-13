@@ -18,10 +18,10 @@
             >
                 <v-list-item
                     to="/"
-                    class="nav-item"
+                    class="my-1 mx-2"
                     rounded="lg"
                     :active="currentPath === '/'"
-                    :class="{ 'nav-item--active': currentPath === '/' }"
+                    :class="{ 'font-weight-bold': currentPath === '/' }"
                 >
                     <template #prepend>
                         <v-icon size="20">
@@ -34,10 +34,10 @@
                     v-for="item in items"
                     :key="item.text"
                     :to="{path: item.slug}"
-                    class="nav-item"
+                    class="my-1 mx-2"
                     rounded="lg"
                     :active="currentPath === item.slug"
-                    :class="{ 'nav-item--active': currentPath === item.slug }"
+                    :class="{ 'font-weight-bold': currentPath === item.slug }"
                 >
                     <template #prepend>
                         <v-icon size="20">
@@ -59,15 +59,15 @@
                 v-if="nav && !smAndUp"
                 @click.stop="drawer = !drawer"
             />
-            <v-toolbar-title class="title ml-2 mr-5 align-center">
-                <div class="d-flex ">
+            <v-toolbar-title class="ml-2 mr-5 align-center">
+                <div class="d-flex align-center">
                     <NuxtLink
                         to="/"
-                        class="brand-link mt-2"
+                        class="brand-link d-inline-flex align-center ga-2 mt-2 text-decoration-none font-weight-bold"
                     >
                         <img
                             v-if="isMounted"
-                            class="brand-logo"
+                            class="rounded-lg object-fit-contain"
                             :src="logoUrl"
                             alt="DayOneBros logo"
                             width="60"
@@ -76,11 +76,11 @@
                     </NuxtLink>
                     <span
                         v-if="category"
-                        class="category-label d-none d-sm-flex"
+                        class="d-none d-sm-flex text-capitalize ml-3"
                     >{{ category }}</span>
                     <span
                         v-if="category"
-                        class="category-label category-label--compact text-caption d-sm-none"
+                        class="category-label--compact text-caption d-sm-none text-capitalize text-truncate d-inline-block ml-3"
                     >{{ compactCategory }}</span>
                 </div>
             </v-toolbar-title>
@@ -88,7 +88,7 @@
             <v-btn
                 icon
                 variant="text"
-                class="theme-toggle"
+                class="mr-2"
                 :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
                 @click="toggleTheme"
             >
@@ -170,50 +170,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.title{
-    a{
-        text-decoration: none;
-    }
-}
 .nav-drawer{
     border-right: 1px solid rgba(var(--v-theme-on-surface), 0.08);
-
-    .title-tile{
-        height: 64px;
-        .v-toolbar__content{
-            padding: 0 8px;
-            align-items: center;
-            .title{
-                font-size: 16px !important;
-            }
-        }
-    }
-    .brand-logo{
-        width: 90%;
-        height: 90px;
-    }
 }
 .brand-link{
     color: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 700;
     letter-spacing: 0.3px;
-    text-decoration: none;
-}
-.brand-logo{
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    border-radius: 10px;
-}
-.title .d-flex{
-    align-items: center;
-}
-.category-label{
-    text-transform: capitalize;
-    margin-left: 10px;
 }
 .category-label--compact{
     max-width: 140px;
@@ -224,14 +186,5 @@ onMounted(() => {
 
 .top-bar{
     backdrop-filter: blur(10px);
-}
-.nav-item{
-    margin: 4px 8px;
-}
-.nav-item--active{
-    font-weight: 700;
-}
-.theme-toggle{
-    margin-right: 6px;
 }
 </style>

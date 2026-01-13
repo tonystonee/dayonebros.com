@@ -3,8 +3,6 @@ a{
 }
 
 .seo-hero{
-  margin: 12px 0 16px;
-  padding: 16px 18px;
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(var(--v-theme-surface), 0.95), rgba(var(--v-theme-surface), 0.7));
   border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
@@ -24,7 +22,6 @@ a{
   text-transform: uppercase;
   letter-spacing: 1.2px;
   color: rgba(var(--v-theme-on-surface), 0.7);
-  margin: 0 0 10px;
 }
 
 .seo-date::before{

@@ -1,7 +1,7 @@
 <template>
     <div class="pa-5">
         <h3>Privacy Policy</h3>
-        <p class="seo-date">
+        <p class="seo-date mb-2">
             Effective date: January 1, 2024
         </p>
         <p>
