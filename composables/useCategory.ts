@@ -17,6 +17,7 @@ export function useCategory () {
 
   const category = computed<string | null>(() => categoryMatch.value?.name ?? null)
   const categoryColor = computed<string | null>(() => categoryMatch.value?.color ?? null)
+  const secondaryColor = computed<string | null>(() => categoryMatch.value?.secondaryColor ?? null)
 
-  return { category, categoryColor }
+  return { category, categoryColor, secondaryColor }
 }

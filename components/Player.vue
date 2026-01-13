@@ -11,15 +11,16 @@
                         v-bind="props"
                         size="large"
                         rounded="pill"
-                        class="random-btn ml-0 px-4 text-uppercase"
+                        class="random-btn ml-0 px-4 mt-2text-uppercase"
                         variant="elevated"
-                        color="primary"
+                        color="secondary"
                         elevation="4"
                         @click="emit('random')"
                     >
                         <v-icon
                             class="mr-2"
-                            size="20">
+                            size="20"
+                        >
                             mdi-shuffle-variant
                         </v-icon>
                         Random
@@ -36,7 +37,10 @@
                 </span>
             </v-tooltip>
 
-            <v-tooltip location="top" v-if="shareUrl">
+            <v-tooltip
+                v-if="shareUrl"
+                location="top"
+            >
                 <template #activator="{ props }">
                     <v-btn
                         v-bind="props"
@@ -47,7 +51,7 @@
                         @click="shareDialog = true"
                     >
                         <v-icon 
-                            color="primary" 
+                            color="secondary" 
                             size="20"
                         >
                             mdi-share-variant

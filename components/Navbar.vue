@@ -144,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDisplay, useTheme } from 'vuetify'
 import { useCategory } from '@/composables/useCategory'
@@ -185,7 +185,7 @@ const items: NavItem[] = [
 const route = useRoute()
 const { smAndUp } = useDisplay()
 const theme = useTheme()
-const { category, categoryColor } = useCategory()
+const { category, categoryColor, secondaryColor } = useCategory()
 
 const hiddenPaths = ['/terms', '/copyright', '/privacy']
 const nav = computed(() => !hiddenPaths.includes(route.path))
@@ -199,6 +199,7 @@ const navColor = computed(() => {
 
 // Vuetify theme state
 const isDark = computed(() => theme.global.current.value.dark)
+const baseSecondary = ref<Record<string, string>>({})
 
 const compactCategory = computed(() => {
   if (!category.value) return ''
@@ -213,6 +214,26 @@ const toggleTheme = () => {
 
 onMounted(() => {
   isMounted.value = true
+})
+
+watch(
+  () => theme.global.name.value,
+  (name) => {
+    const themeEntry = theme.themes.value?.[name]
+    if (!themeEntry?.colors?.secondary) return
+    if (!baseSecondary.value[name]) {
+      baseSecondary.value[name] = themeEntry.colors.secondary
+    }
+  },
+  { immediate: true }
+)
+
+watchEffect(() => {
+  const name = theme.global.name.value
+  const themeEntry = theme.themes.value?.[name]
+  if (!themeEntry?.colors) return
+  const fallback = baseSecondary.value[name] ?? themeEntry.colors.secondary
+  themeEntry.colors.secondary = secondaryColor.value ?? fallback
 })
 </script>
 
