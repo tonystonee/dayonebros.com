@@ -1,12 +1,13 @@
 <template>
-    <section class="seo-hero">
-        <h1 class="seo-title">DayOneBros: Today's Top 10 {{ category?.name ?? 'Category' }} Videos</h1>
-        <p class="seo-date">{{ dateLabel }}</p>
-        <p class="seo-copy">
-            Daily {{ (category?.name ?? 'category').toLowerCase() }} highlights with the best new videos right now.
-        </p>
+    <section class="seo-hero mx-3 ">
+        <h1 class="seo-title">
+            DayOneBros: Today's Top 10 {{ category?.name ?? 'Category' }} Videos
+        </h1>
     </section>
-    <Page :uri="uri" />
+    <Page
+        :uri="uri"
+        :summary="summaryText"
+    />
 </template>
 
 <script setup lang="ts">
@@ -22,17 +23,17 @@ defineOptions({ name: 'CategoryPage' })
 const route = useRoute()
 const config = useRuntimeConfig()
 const maxResults = ref(10)
-const dateLabel = new Date().toLocaleDateString('en-US', {
-  month: 'long',
-  day: 'numeric',
-  year: 'numeric'
-})
 
 const slug = computed(() => String(route.params.category || '').toLowerCase())
 
 const category = computed(() =>
   categories.find((item) => slugify(item.name, { lower: true }) === slug.value)
 )
+
+const summaryText = computed(() => {
+  const categoryName = category.value?.name ?? 'category'
+  return `Daily ${categoryName.toLowerCase()} highlights with the best new videos right now.`
+})
 
 // ✅ 404 in a way Nuxt supports (safe during SSR + route changes)
 watchEffect(() => {
@@ -98,29 +99,5 @@ const uri = computed(() => {
     font-weight: 800;
     letter-spacing: 0.2px;
     margin: 0 0 8px;
-}
-.seo-date{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: rgba(var(--v-theme-on-surface), 0.7);
-    margin: 0 0 10px;
-}
-.seo-date::before{
-    content: '';
-    width: 12px;
-    height: 2px;
-    background: rgba(var(--v-theme-primary), 0.85);
-    border-radius: 999px;
-}
-.seo-copy{
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
-    color: rgba(var(--v-theme-on-surface), 0.72);
 }
 </style>

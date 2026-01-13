@@ -15,12 +15,10 @@
                     @random="random"
                 />  
 
-                <p class="seo-date">
-                    {{ dateLabel }}
-                </p>
-                <p class="seo-copy">
-                    Daily YouTube highlight reel with the top 10 viral videos you might have missed today.
-                </p>
+                <SeoSummary
+                    :date-label="dateLabel"
+                    :description="summaryText"
+                />
             </v-col>
             <v-col
                 cols="12"
@@ -37,11 +35,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useFetch } from '#imports'
 import { useDisplay, useGoTo } from 'vuetify'
 import ErrorDialog from '@/components/ErrorDialog.vue'
 import Player from '@/components/Player.vue'
+import SeoSummary from '@/components/SeoSummary.vue'
 import TopTenBar from '@/components/TopTenBar.vue'
 import type { VideoItem } from '@/types/video'
 
@@ -50,6 +49,7 @@ defineOptions({ name: 'AppPage' })
 const props = defineProps<{
   uri: string
   maxResults?: number
+  summary?: string
 }>()
 
 const now = new Date()
@@ -57,6 +57,9 @@ const dateLabel = now.toLocaleDateString('en-US', {
   month: 'long',
   day: 'numeric',
   year: 'numeric'
+})
+const summaryText = computed(() => {
+  return props.summary ?? 'Daily YouTube highlight reel with the top 10 viral videos you might have missed today.'
 })
 
 const currentVideo = ref<VideoItem | null>(null)
