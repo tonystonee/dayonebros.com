@@ -1,5 +1,5 @@
 <template>
-    <SeoHeader title="Top 10 YouTube Videos Today: Trending Now" />
+    <SeoHeader title="Random YouTube Video Generator" />
     <Page
         :uri="uri"
         :max-results="maxResults"
@@ -13,28 +13,24 @@ import { useHead, useRuntimeConfig } from '#imports'
 import Page from '@/components/Page.vue'
 import SeoHeader from '@/components/SeoHeader.vue'
 
-defineOptions({ name: 'HomePage' })
+defineOptions({ name: 'RandomGeneratorPage' })
 
-const now = new Date()
-const month = now.toLocaleString('en-US', { month: 'short' })
-const year = now.getFullYear()
-const dateStamp = `${month} ${year}`
-const summaryText = "Bored? Discover today's most viral YouTube videos with a hand-picked top 10 across every category."
+const summaryText = 'YouTube Roulette 2026'
 
 useHead({
-  title: `Top 10 YouTube Videos Today: Trending Now (${dateStamp})`,
+  title: 'Random YouTube Video Generator',
   meta: [
     {
       name: 'description',
-      content: "Discover today's most viral YouTube videos. Hand-picked top 10 daily trends across all categories. See what the world is watching right now!"
+      content: 'YouTube Roulette 2026'
     },
     {
       property: 'og:title',
-      content: `Top 10 YouTube Videos Today: Trending Now (${dateStamp})`
+      content: 'Random YouTube Video Generator'
     },
     {
       property: 'og:description',
-      content: "Discover today's most viral YouTube videos. Hand-picked top 10 daily trends across all categories."
+      content: 'YouTube Roulette 2026'
     },
     {
       name: 'twitter:card',

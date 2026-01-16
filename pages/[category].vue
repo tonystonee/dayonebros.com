@@ -20,12 +20,50 @@ defineOptions({ name: 'CategoryPage' })
 const route = useRoute()
 const config = useRuntimeConfig()
 const maxResults = ref(10)
+const now = new Date()
+const dateStamp = now.toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric'
+})
 
 const slug = computed(() => String(route.params.category || '').toLowerCase())
 
 const category = computed(() =>
   categories.find((item) => slugify(item.name, { lower: true }) === slug.value)
 )
+
+const categorySeoCopy = {
+  comedy: {
+    title: 'Top 10 Funniest YouTube Videos Today',
+    description: 'Viral Comedy Clips'
+  },
+  entertainment: {
+    title: 'Best Entertainment Videos Today',
+    description: 'Top 10 Trending Clips'
+  },
+  gaming: {
+    title: 'Top 10 Trending Gaming Videos',
+    description: "Today's Best Gameplay"
+  },
+  'science-technology': {
+    title: 'Top 10 Tech & Science Videos Today',
+    description: 'New Tech Trends'
+  },
+  education: {
+    title: 'Top 10 Educational Videos Today',
+    description: 'Learn Something New'
+  },
+  'howto-style': {
+    title: 'Top 10 How-to & DIY Videos Today',
+    description: 'Viral Style Trends'
+  }
+} as const
+
+const seoCopy = computed(() => {
+  const key = slug.value as keyof typeof categorySeoCopy
+  return categorySeoCopy[key]
+})
 
 const summaryText = computed(() => {
   const categoryName = category.value?.name ?? 'category'
@@ -46,20 +84,24 @@ watchEffect(() => {
 
 useHead(() => {
   const categoryName = category.value?.name ?? 'Category'
+  const baseTitle = seoCopy.value?.title ?? `Top 10 ${categoryName} videos today`
+  const description = seoCopy.value?.description
+    ?? `Daily ${categoryName.toLowerCase()} highlights with the best new videos right now.`
+  const title = `${baseTitle} - ${dateStamp}`
   return {
-    title: `Top 10 ${categoryName} videos today | DayOneBros`,
+    title,
     meta: [
       {
         name: 'description',
-        content: `Daily ${categoryName.toLowerCase()} highlights with the top 10 videos to watch right now.`
+        content: description
       },
       {
         property: 'og:title',
-        content: `Top 10 ${categoryName} videos today | DayOneBros`
+        content: title
       },
       {
         property: 'og:description',
-        content: `Best new ${categoryName.toLowerCase()} videos today in a daily list.`
+        content: description
       },
       {
         name: 'twitter:card',
