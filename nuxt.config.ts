@@ -1,6 +1,19 @@
 import { resolve } from 'path'
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      script: [
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-P998S9HDSH',
+          async: true
+        },
+        {
+          innerHTML: "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-P998S9HDSH');"
+        }
+      ]
+    }
+  },
   css: ['vuetify/styles', '@mdi/font/css/materialdesignicons.css', '@/assets/styles/shared.scss'],
   build: {
     transpile: ['vuetify']
